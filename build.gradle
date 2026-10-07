@@ -21,7 +21,7 @@ sourceSets {
 }
 
 application {
-    mainClass = 'proj2.Driver'
+    mainClass = 'proj2.Main'
 }
 
 dependencies {

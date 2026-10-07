@@ -1,8 +1,11 @@
 package proj2;
 
-public class Driver {
+import proj2.core.Driver;
+
+public class Main
+{
     public static void main(String[] args)
     {
-        System.out.println("Hello, world!");
+        Driver.run(args);
     }
 }
