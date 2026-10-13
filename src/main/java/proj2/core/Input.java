@@ -54,7 +54,6 @@ public class Input {
         return inputString(prompt, 1000);
     }
 
-
     public static double inputDouble(String prompt, int limit){
         Scanner scan = new Scanner(System.in);
         String input = "";
@@ -81,6 +80,34 @@ public class Input {
 
     public static double inputDouble(String prompt){
         return inputDouble(prompt, 999999999);
+    }
+
+    public static int inputInt(String prompt, int limit){
+        Scanner scan = new Scanner(System.in);
+        String input = "";
+        int output = 0;
+        boolean valid = false;
+
+        while(!valid) {
+            try {
+                valid = true;
+                input = scan.nextLine();
+                output = Integer.parseInt(input);
+                if(Math.abs(output) > limit) {
+                    System.out.println("Invalid input. Please input a number from -" + limit + " to " + limit + ".");
+                    valid = false;
+                }
+            } catch (NumberFormatException e) {
+                valid = false;
+                System.out.println("Not an integer. Please input a number from -" + limit + " to " + limit + ".");
+            }
+        }
+
+        return output;
+    }
+
+    public static int inputInt(String prompt){
+        return inputInt(prompt, 999999999);
     }
 }
 

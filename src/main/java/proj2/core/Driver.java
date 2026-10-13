@@ -1,13 +1,18 @@
 package proj2.core;
 
+import proj2.collectibles.Collectible;
+import proj2.collectibles.TradingCard;
+import proj2.collections.Collection;
 
 public class Driver {
     private static int hover = -1;
-    private Collection<Collectible> currentCollection = null;
+    private static Collection<Collectible> currentCollection = null;
+    private static final String[] collectibleTypes = {"Action Figure", "Stamp", "Trading Card"};
+
 
     public static void run(String[] args)
     {
-        
+        startMenu();
     }
 
     public static void startMenu(){
@@ -47,11 +52,11 @@ public class Driver {
                     //
                     break;
                 case 2:
-                    selectCollectible();
+                    hover = selectCollectible();
                     //remove that collectible
                     break;
                 case 3:
-                    selectCollectible();
+                    hover = selectCollectible();
                     //edit that collectible;
                     break;
                 case 4:
@@ -64,15 +69,44 @@ public class Driver {
     public static void addCollectible(){
         //Create a collectible
         //Add that to the front of the collection
+        String prompt = "What kind of collectible would you like to add?";
+        int choice = -1;
+        choice = Input.options(prompt, collectibleTypes);
+        String name = Input.inputString("What is the name of your collectible?");
+        String desc = Input.inputString("Please add a short description.");
+        double value = Input.inputDouble("What is the value of your collectible?");
+
+        //Yes this switch is hard coded based on collectible types don't judge me
+        //Starts at 0 and goes alphabetically
+        switch(choice){
+            case 0:
+                //ActionFigure entry = new ActionFigure(PUT THE FIELDS IN HERE);
+                break;
+            case 1:
+                //yeah, fill this one out too
+                break;
+            case 2:
+                String type = Input.inputString("What type of trading card is it?");
+                int grade = Input.inputInt("What is the grade of the trading card?");
+                int printYear = Input.inputInt("What year was it printed?");
+                TradingCard entry = new TradingCard(name, desc, value, type, grade, printYear);
+                break;
+        }
     }
 
     public static int selectCollectible(){
         //use toArray, getValue, and info to create options
         String prompt = "Select a collectible";
-        String[] options = currentCollection.toArray();
+        Object[] tempOptions = currentCollection.toArray();
+        Collectible[] collectibles = (Collectible[]) tempOptions;
+        String[] options = new String[collectibles.length];
+        for(int i = 0; i < collectibles.length; i++){
+            options[i] = collectibles[i].getName();
+        }
+
         int choice = -1;
         choice = Input.options(prompt, options);
-        hover = choice;
+        return choice;
     }
 
     public static void editCollectible(){
