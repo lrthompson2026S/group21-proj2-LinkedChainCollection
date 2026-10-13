@@ -56,6 +56,7 @@ public class Input {
 
     public static double inputDouble(String prompt, int limit){
         Scanner scan = new Scanner(System.in);
+        System.out.println(prompt);
         String input = "";
         double output = 0;
         boolean valid = false;
@@ -84,6 +85,7 @@ public class Input {
 
     public static int inputInt(String prompt, int limit){
         Scanner scan = new Scanner(System.in);
+        System.out.println(prompt);
         String input = "";
         int output = 0;
         boolean valid = false;

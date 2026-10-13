@@ -12,9 +12,27 @@ public class Stamp extends Collectible {
      * Creates a Stamp with default values.
      */
     public Stamp() {
+        super();
         age = 0;
         printLocation = "";
         misprint = false;
+    }
+
+    /**
+     * Creates a Stamp with values specified by the user
+     *
+     * @param name name of the stamp
+     * @param desc short description
+     * @param value monetary value in dollars
+     * @param age how old is the stamp
+     * @param printLocation where was the stamp made
+     * @param misprint whether or not the stamp was misprinted
+     */
+    public Stamp(String name, String desc, double value, int age, String printLocation, boolean misprint) {
+        super(name, desc, value);
+        this.age = age;
+        this.printLocation = printLocation;
+        this.misprint = misprint;
     }
 
     /**
