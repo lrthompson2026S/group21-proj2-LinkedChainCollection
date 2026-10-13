@@ -3,7 +3,7 @@ package proj2.core;
 
 public class Driver {
     private static int hover = -1;
-    private Collection currentCollection = null;
+    private Collection<Collectible> currentCollection = null;
 
     public static void run(String[] args)
     {
@@ -19,7 +19,7 @@ public class Driver {
         switch(choice) {
             case 0:
                 //create a new collection and call main menu
-                currentCollection = new Collection();
+                currentCollection = new Collection<Collectible>();
                 mainMenu();
                 break;
             case 1:
