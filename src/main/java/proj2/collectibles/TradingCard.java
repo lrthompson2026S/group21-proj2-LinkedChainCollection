@@ -1,5 +1,6 @@
 package proj2.collectibles;
 
+import java.util.Scanner;
 import proj2.core.Input;
 
 // -------------------------------------------------------------------------
@@ -148,7 +149,53 @@ public class TradingCard extends Collectible {
 
     @Override
     public void edit() {
-        System.out.println("edit me when you have input class working");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("1. Edit name");
+        System.out.println("2. Edit description");
+        System.out.println("3. Edit value");
+        System.out.println("4. Edit type");
+        System.out.println("5. Edit grade");
+        System.out.println("6. Edit print year");
+
+        System.out.print("Choose an option: ");
+
+        int option = scanner.nextInt();
+        scanner.nextLine();
+
+        if (option == 1) {
+            System.out.print("Enter name: ");
+            String newName = scanner.nextLine();
+            setName(newName);
+        }
+        else if (option == 2) {
+            System.out.print("Enter description: ");
+            String newDesc = scanner.nextLine();
+            setDesc(newDesc);
+        }
+        else if (option == 3) {
+            System.out.print("Enter value: ");
+            double newValue = scanner.nextDouble();
+            setValue(newValue);
+        }
+        else if (option == 4) {
+            System.out.print("Enter type: ");
+            String newType = scanner.nextLine();
+            setType(newType);
+        }
+        else if (option == 5) {
+            System.out.print("Enter grade: ");
+            int newGrade = scanner.nextInt();
+            setGrade(newGrade);
+        }
+        else if (option == 6) {
+            System.out.print("Enter print year: ");
+            int newYear = scanner.nextInt();
+            setPrintYear(newYear);
+        }
+        else {
+            System.out.println("Invalid menu choice.");
+        }
     }
 }
 
