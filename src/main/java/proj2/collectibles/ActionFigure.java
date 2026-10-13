@@ -12,9 +12,27 @@ public class ActionFigure extends Collectible {
      * Creates an ActionFigure with default values.
      */
     public ActionFigure() {
+        super();
         series = "";
         sealed = false;
         character = "";
+    }
+
+    /**
+     * Creates an ActionFigure with values specified by the user
+     *
+     * @param name name of the action figure
+     * @param desc short description
+     * @param value monetary value in dollars
+     * @param series what series is the figure a part of
+     * @param sealed if the figure is sealed or not
+     * @param character what character the figure is depicting
+     */
+    public ActionFigure(String name, String desc, double value, String series, boolean sealed, String character) {
+        super(name, desc, value);
+        this.series = series;
+        this.sealed = sealed;
+        this.character = character;
     }
 
     /**
