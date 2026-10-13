@@ -1,11 +1,25 @@
+/**
+ * Rin Hall 9069-13080
+ * 10/13/2026
+ */
+
 package proj2.core;
 
 import java.util.Scanner;
 
+/**
+ * The class for input. Validates inputs based on type.
+ */
 public class Input {
 
     private static final Scanner scan = new Scanner(System.in);
 
+    /**
+     * Has the user select from a list of options
+     * @param prompt The prompt that the function will output
+     * @param options An array of options for the user to select from
+     * @return An integer representing the option chosen.
+     */
     public static int options(String prompt, String[] options) {
         System.out.println(prompt);
         for(int i = 0; i < options.length; i++){
@@ -33,6 +47,12 @@ public class Input {
         return optionIndex;
     }
 
+    /**
+     * Has the user input a string
+     * @param prompt The prompt that the function will output
+     * @param charLimit The maximum allowed character limit
+     * @return The string that the user inputted
+     */
     public static String inputString(String prompt, int charLimit){
         Scanner scan = new Scanner(System.in);
         System.out.println(prompt);
@@ -50,10 +70,22 @@ public class Input {
         return output;
     }
 
+    /**
+     * Has the user input a string with a default character limit of 1000
+     * @param prompt The prompt that the function will output
+     * @return The string that the user inputted
+     */
     public static String inputString(String prompt){   //Overloaded method for a default character limit of 1000
         return inputString(prompt, 1000);
     }
 
+    /**
+     * Has the user input a double
+     * @param prompt The prompt that the function will output
+     * @param limit The maximum value that can be inputted
+     *              This works for negative numbers too, i.e. a limit of 10 will make -15 invalid
+     * @return The double that the user inputted
+     */
     public static double inputDouble(String prompt, int limit){
         Scanner scan = new Scanner(System.in);
         System.out.println(prompt);
@@ -79,10 +111,22 @@ public class Input {
         return output;
     }
 
+    /**
+     * Has the user input a double with default limit of 999,999,999
+     * @param prompt The prompt that the function will output
+     * @return The double that the user inputted
+     */
     public static double inputDouble(String prompt){
         return inputDouble(prompt, 999999999);
     }
 
+    /**
+     * Has the user input an integer
+     * @param prompt The prompt that the function will output
+     * @param limit The maximum value that can be inputted
+     *              This works for negative numbers too, i.e. a limit of 10 will make -15 invalid
+     * @return The integer that the user inputted
+     */
     public static int inputInt(String prompt, int limit){
         Scanner scan = new Scanner(System.in);
         System.out.println(prompt);
@@ -108,6 +152,11 @@ public class Input {
         return output;
     }
 
+    /**
+     * Has the user input an integer with a default limit of 999,999,999
+     * @param prompt The prompt that the function will output
+     * @return The integer that the user inputted
+     */
     public static int inputInt(String prompt){
         return inputInt(prompt, 999999999);
     }

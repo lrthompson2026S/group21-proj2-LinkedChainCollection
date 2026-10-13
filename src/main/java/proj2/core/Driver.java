@@ -1,3 +1,8 @@
+/**
+ * Rin Hall 9069-13080
+ * 10/13/2026
+ */
+
 package proj2.core;
 
 import proj2.collectibles.ActionFigure;
@@ -8,27 +13,36 @@ import proj2.collections.Collection;
 
 import java.util.NoSuchElementException;
 
+/**
+ * This class is what controls the collection and interfaces with the user to edit it
+ */
 public class Driver {
     private static Collectible hover = null;
     private static Collection<Collectible> currentCollection = null;
     private static final String[] collectibleTypes = {"Action Figure", "Stamp", "Trading Card"};
 
-
+    /**
+     * Run is practically main, but so as not to store logic in main, we made a new method for it
+     * @param args default param
+     */
     public static void run(String[] args)
     {
         startMenu();
     }
 
+    /**
+     * Start menu allows the user to create a new collection
+     */
     public static void startMenu(){
         String prompt = "Would you like to start a new collection?";
         String[] options = {"Start a new collection.", "Exit"};
-        int choice = -1;
+        int choice;
         choice = Input.options(prompt, options);
 
         switch(choice) {
             case 0:
                 //create a new collection and call main menu
-                currentCollection = new Collection<Collectible>();
+                currentCollection = new Collection<>();
                 mainMenu();
                 break;
             case 1:
@@ -36,6 +50,11 @@ public class Driver {
         }
     }
 
+    /**
+     * Main menu is the primary control loop of the program. Once called, it enters a loop that allows the user to
+     * add, remove, edit, or display the collection. It only allows users to remove from, edit, or display the
+     * collection if the collection is not empty.
+     */
     public static void mainMenu(){
         boolean endLoop = false;
         String[] defaultOptions = {"Exit", "Add a collectible", "Remove a collectible", "Edit a collectible", "Display collection"};
@@ -47,7 +66,7 @@ public class Driver {
                 options = emptyCollectionOptions;
                 System.out.println("Current collection is empty");
             }
-            int choice = -1;
+            int choice;
             choice = Input.options(prompt, options);
             switch(choice){
                 case 0:
@@ -71,11 +90,15 @@ public class Driver {
         }
     }
 
+    /**
+     * Prompts a user for a type of collectible, creates that kind of collectible.
+     * Add that created collectible to the current collection.
+     */
     public static void addCollectible(){
         //Create a collectible
         //Add that to the front of the collection
         String prompt = "What kind of collectible would you like to add?";
-        int choice = -1;
+        int choice;
         choice = Input.options(prompt, collectibleTypes);
         String name = Input.inputString("What is the name of your collectible?");
         String desc = Input.inputString("Please add a short description.");
@@ -114,6 +137,11 @@ public class Driver {
         currentCollection.add(entry);
     }
 
+    /**
+     * Choose a collectible from the current collection
+     *
+     * @return the collectible the user selected
+     */
     public static Collectible selectCollectible(){
         if(currentCollection.isEmpty()){
             throw new NoSuchElementException();
@@ -130,24 +158,34 @@ public class Driver {
             options[i] = collectibles[i].getName();
         }
 
-        int choice = -1;
+        int choice;
         choice = Input.options(prompt, options);
         return collectibles[choice];
     }
 
-    public static void removeCollectible(){
+    /**
+     * Removes the currently selected collectible from the collection
+     */
+    public static Collectible removeCollectible(){
         if(currentCollection.isEmpty()){
             throw new NoSuchElementException();
         }
-        currentCollection.remove(hover);
+        Object removed = currentCollection.remove(hover);
+        return (Collectible) removed;
     }
 
+    /**
+     * Calls the edit() function of the currently selected collectible
+     */
     public static void editCollectible(){
         if(hover != null){
             hover.edit();
         }
     }
 
+    /**
+     * Displays the toString() of every collectible in the current collection
+     */
     public static void displayCollection(){
         if(currentCollection.isEmpty()){
             throw new NoSuchElementException();
@@ -159,5 +197,6 @@ public class Driver {
             collectibles[i] = (Collectible) tempOptions[i];
             System.out.println(collectibles[i]);
         }
+        System.out.println();
     }
 }
