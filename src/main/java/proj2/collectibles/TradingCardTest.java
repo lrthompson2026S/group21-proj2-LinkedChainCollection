@@ -66,7 +66,54 @@ public class TradingCardTest extends student.TestCase {
         assertEquals("Pikachu - $145.32 - Type: Pokemon", pikachu.info());
         // It works I don't wanna spam the assert equals on print statements
     }
+    public void testEditName() {
+        setSystemIn("1\nCharizard\n");
+        pikachu.edit();
+        assertEquals("Charizard", pikachu.getName());
+    }
 
+
+    public void testEditDesc() {
+        setSystemIn("2\nUpdated description\n");
+        pikachu.edit();
+        assertEquals("Updated description", pikachu.getDesc());
+    }
+
+
+    public void testEditValue() {
+        setSystemIn("3\n250.50\n");
+        pikachu.edit();
+        assertEquals(250.50, pikachu.getValue(), 0.001);
+    }
+
+
+    public void testEditType() {
+        setSystemIn("4\nMagic\n");
+        pikachu.edit();
+        assertEquals("Magic", pikachu.getType());
+    }
+
+
+    public void testEditGrade() {
+        setSystemIn("5\n9\n");
+        pikachu.edit();
+        assertEquals(9, pikachu.getGrade());
+    }
+
+
+    public void testEditPrintYear() {
+        setSystemIn("6\n2012\n");
+        pikachu.edit();
+        assertEquals(2012, pikachu.getPrintYear());
+    }
+
+
+    public void testEditInvalidOption() {
+        setSystemIn("99\n");
+        pikachu.edit();
+        // Verifies it handles invalid input without crashing
+        assertEquals("Unknown Collectible", pikachu.getName());
+    }
     // This so far is basically everything BESIDES the edit stuff but i need the
     // input stuff to finalize that anyway
  
