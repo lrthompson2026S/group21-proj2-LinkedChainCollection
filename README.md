@@ -1,12 +1,12 @@
 # Proj2: Group21 - LinkedChainCollection
 
-## Build, Run, and Test:
+## Build, Run, and Test
 
     ./gradlew build
     ./gradlew test
     ./gradlew run
 
-## Reflection:
+## Reflection
 
     What changed from your specification? Classes, method signatures, where validation lives, test cases — what did the spec say, what did you build instead, and why?
         - There were a few extra method signatures that were needed. Driver has two methods added, removeCollectible and displayCollection. 
@@ -17,7 +17,7 @@
     What doesn't work yet? MVP features, bad-input cases, or tests that are missing or failing in this prototype.
         - Currently, the collection display is not consistent across all collectible types. We have also not implemented any stretch goals yet. Otherwise this prototype is near complete.
 
-## Next steps — in your README.md, under a “Next Steps” heading, lay out what you will do next to extend this prototype toward the final. Your plan should address:
+## Next steps
 
     What is left to finish the MVP? The remaining features and fixes, in the order you will do them.
         - The MVP will be finished once the collectibles display and are editable consistently. We will fix the editing inconsistencies first, and then the display. We will update our test files to reflect all of these changes. 
@@ -35,7 +35,7 @@
         - Lucas T: Adjust Collection to function as a Collectible 
         - Rin H: Adjust display and edit to consistently output amongst all collectible types
 
-## Attribution — in your README.md, a table with one row per class and test file listing who worked on it and how (wrote revised, reviewed, tested, GenAI-assisted, …), plus a note on the way in which you used GenAI, if at all.
+## Attribution
 
     Elijah O:
         Wrote: Collectible, TradingCard, TradingCardTest
