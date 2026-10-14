@@ -1,4 +1,3 @@
-```java
 package proj2.collectibles;
 
 import java.util.Scanner;
@@ -8,6 +7,7 @@ public class Stamp extends Collectible {
     private int age;
     private String printLocation;
     private boolean misprint;
+
 
     /**
      * Creates a Stamp with default values.
@@ -19,36 +19,35 @@ public class Stamp extends Collectible {
         misprint = false;
     }
 
+
     /**
      * Creates a Stamp with values specified by the user
      *
-     * @param name name of the stamp
-     * @param desc short description
-     * @param value monetary value in dollars
-     * @param age how old is the stamp
-     * @param printLocation where was the stamp made
-     * @param misprint whether or not the stamp was misprinted
+     * @param name
+     *     name of the stamp
+     * @param desc
+     *     short description
+     * @param value
+     *     monetary value in dollars
+     * @param age
+     *     how old is the stamp
+     * @param printLocation
+     *     where was the stamp made
+     * @param misprint
+     *     whether or not the stamp was misprinted
      */
-    public Stamp(String name, String desc, double value, int age, String printLocation, boolean misprint) {
+    public Stamp(String name,
+        String desc,
+        double value,
+        int age,
+        String printLocation,
+        boolean misprint) {
         super(name, desc, value);
         this.age = age;
         this.printLocation = printLocation;
         this.misprint = misprint;
     }
 
-    /**
-     * Sets the age of the stamp.
-     *
-     * @param age the age of the stamp
-     */
-    public void setAge(int age) {
-        if (age < 0) {
-            System.out.println("Age cannot be negative.");
-            return;
-        }
-
-        this.age = age;
-    }
 
     /**
      * Returns the age of the stamp.
@@ -59,19 +58,22 @@ public class Stamp extends Collectible {
         return age;
     }
 
+
     /**
-     * Sets the print location of the stamp.
+     * Sets the age of the stamp.
      *
-     * @param location the location where the stamp was printed
+     * @param age
+     *     the age of the stamp
      */
-    public void setPrintLocation(String location) {
-        if (location == null || location.isEmpty()) {
-            System.out.println("Print location cannot be empty.");
+    public void setAge(int age) {
+        if (age < 0) {
+            System.out.println("Age cannot be negative.");
             return;
         }
 
-        printLocation = location;
+        this.age = age;
     }
+
 
     /**
      * Returns the print location of the stamp.
@@ -82,14 +84,22 @@ public class Stamp extends Collectible {
         return printLocation;
     }
 
+
     /**
-     * Sets whether the stamp is a misprint.
+     * Sets the print location of the stamp.
      *
-     * @param misprint whether the stamp is a misprint
+     * @param location
+     *     the location where the stamp was printed
      */
-    public void setMisprint(boolean misprint) {
-        this.misprint = misprint;
+    public void setPrintLocation(String location) {
+        if (location == null || location.isEmpty()) {
+            System.out.println("Print location cannot be empty.");
+            return;
+        }
+
+        printLocation = location;
     }
+
 
     /**
      * Returns whether the stamp is a misprint.
@@ -100,6 +110,18 @@ public class Stamp extends Collectible {
         return misprint;
     }
 
+
+    /**
+     * Sets whether the stamp is a misprint.
+     *
+     * @param misprint
+     *     whether the stamp is a misprint
+     */
+    public void setMisprint(boolean misprint) {
+        this.misprint = misprint;
+    }
+
+
     /**
      * Returns a short description of the stamp.
      *
@@ -109,6 +131,7 @@ public class Stamp extends Collectible {
         return "Stamp - " + printLocation;
     }
 
+
     /**
      * Returns all information about the stamp.
      *
@@ -116,16 +139,13 @@ public class Stamp extends Collectible {
      */
     @Override
     public String toString() {
-        return "Stamp{"
-                + "age=" + age
-                + ", printLocation='" + printLocation + '\''
-                + ", misprint=" + misprint
-                + '}';
+        return "Stamp{" + "age=" + age + ", printLocation='" + printLocation + '\'' + ", misprint=" + misprint + '}';
     }
 
+
     /**
-     * Allows the user to edit the stamp's fields.
-     * Validates menu choices and user input.
+     * Allows the user to edit the stamp's fields. Validates menu choices and
+     * user input.
      */
     public void edit() {
         Scanner scanner = new Scanner(System.in);
@@ -143,15 +163,11 @@ public class Stamp extends Collectible {
                 option = Integer.parseInt(input);
 
                 if (option < 1 || option > 3) {
-                    System.out.println(
-                        "Invalid choice. Enter 1, 2, or 3."
-                    );
+                    System.out.println("Invalid choice. Enter 1, 2, or 3.");
                 }
             }
             catch (NumberFormatException e) {
-                System.out.println(
-                    "Invalid input. Enter a number."
-                );
+                System.out.println("Invalid input. Enter a number.");
             }
         }
 
@@ -166,56 +182,48 @@ public class Stamp extends Collectible {
                     newAge = Integer.parseInt(input);
 
                     if (newAge < 0) {
-                        System.out.println(
-                            "Age cannot be negative."
-                        );
+                        System.out.println("Age cannot be negative.");
                     }
                 }
                 catch (NumberFormatException e) {
-                    System.out.println(
-                        "Invalid input. Enter a whole number."
-                    );
+                    System.out.println("Invalid input. Enter a whole number.");
                 }
             }
 
             setAge(newAge);
-        }
-        else if (option == 2) {
-            String newLocation;
+        } else
+            if (option == 2) {
+                String newLocation;
 
-            do {
-                System.out.print("Enter print location: ");
-                newLocation = scanner.nextLine();
+                do {
+                    System.out.print("Enter print location: ");
+                    newLocation = scanner.nextLine();
 
-                if (newLocation.trim().isEmpty()) {
-                    System.out.println(
-                        "Print location cannot be empty."
-                    );
+                    if (newLocation.trim().isEmpty()) {
+                        System.out.println("Print location cannot be empty.");
+                    }
                 }
-            } while (newLocation.trim().isEmpty());
+                while (newLocation.trim().isEmpty());
 
-            setPrintLocation(newLocation);
-        }
-        else {
-            String input;
+                setPrintLocation(newLocation);
+            } else {
+                String input;
 
-            do {
-                System.out.print(
-                    "Is this stamp a misprint? (true/false): "
-                );
-                input = scanner.nextLine().trim();
+                do {
+                    System.out.print(
+                        "Is this stamp a misprint? (true/false): ");
+                    input = scanner.nextLine().trim();
 
-                if (!input.equalsIgnoreCase("true")
-                        && !input.equalsIgnoreCase("false")) {
-                    System.out.println(
-                        "Invalid input. Enter true or false."
-                    );
+                    if (!input.equalsIgnoreCase(
+                        "true") && !input.equalsIgnoreCase("false")) {
+                        System.out.println(
+                            "Invalid input. Enter true or false.");
+                    }
                 }
-            } while (!input.equalsIgnoreCase("true")
-                    && !input.equalsIgnoreCase("false"));
+                while (!input.equalsIgnoreCase(
+                    "true") && !input.equalsIgnoreCase("false"));
 
-            setMisprint(Boolean.parseBoolean(input));
-        }
+                setMisprint(Boolean.parseBoolean(input));
+            }
     }
 }
-```

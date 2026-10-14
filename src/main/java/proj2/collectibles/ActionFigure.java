@@ -1,4 +1,3 @@
-```java
 package proj2.collectibles;
 
 import java.util.Scanner;
@@ -8,6 +7,7 @@ public class ActionFigure extends Collectible {
     private String series;
     private boolean sealed;
     private String character;
+
 
     /**
      * Creates an ActionFigure with default values.
@@ -19,36 +19,35 @@ public class ActionFigure extends Collectible {
         character = "";
     }
 
+
     /**
      * Creates an ActionFigure with values specified by the user
      *
-     * @param name name of the action figure
-     * @param desc short description
-     * @param value monetary value in dollars
-     * @param series what series is the figure a part of
-     * @param sealed if the figure is sealed or not
-     * @param character what character the figure is depicting
+     * @param name
+     *     name of the action figure
+     * @param desc
+     *     short description
+     * @param value
+     *     monetary value in dollars
+     * @param series
+     *     what series is the figure a part of
+     * @param sealed
+     *     if the figure is sealed or not
+     * @param character
+     *     what character the figure is depicting
      */
-    public ActionFigure(String name, String desc, double value, String series, boolean sealed, String character) {
+    public ActionFigure(String name,
+        String desc,
+        double value,
+        String series,
+        boolean sealed,
+        String character) {
         super(name, desc, value);
         this.series = series;
         this.sealed = sealed;
         this.character = character;
     }
 
-    /**
-     * Sets the series of the action figure.
-     *
-     * @param series the series
-     */
-    public void setSeries(String series) {
-        if (series == null || series.isEmpty()) {
-            System.out.println("Series cannot be empty.");
-            return;
-        }
-
-        this.series = series;
-    }
 
     /**
      * Returns the series of the action figure.
@@ -59,14 +58,22 @@ public class ActionFigure extends Collectible {
         return series;
     }
 
+
     /**
-     * Sets whether the action figure is sealed.
+     * Sets the series of the action figure.
      *
-     * @param sealed whether the action figure is sealed
+     * @param series
+     *     the series
      */
-    public void setSealed(boolean sealed) {
-        this.sealed = sealed;
+    public void setSeries(String series) {
+        if (series == null || series.isEmpty()) {
+            System.out.println("Series cannot be empty.");
+            return;
+        }
+
+        this.series = series;
     }
+
 
     /**
      * Returns whether the action figure is sealed.
@@ -77,19 +84,17 @@ public class ActionFigure extends Collectible {
         return sealed;
     }
 
-    /**
-     * Sets the character represented by the action figure.
-     *
-     * @param character the character
-     */
-    public void setCharacter(String character) {
-        if (character == null || character.isEmpty()) {
-            System.out.println("Character cannot be empty.");
-            return;
-        }
 
-        this.character = character;
+    /**
+     * Sets whether the action figure is sealed.
+     *
+     * @param sealed
+     *     whether the action figure is sealed
+     */
+    public void setSealed(boolean sealed) {
+        this.sealed = sealed;
     }
+
 
     /**
      * Returns the character represented by the action figure.
@@ -100,6 +105,23 @@ public class ActionFigure extends Collectible {
         return character;
     }
 
+
+    /**
+     * Sets the character represented by the action figure.
+     *
+     * @param character
+     *     the character
+     */
+    public void setCharacter(String character) {
+        if (character == null || character.isEmpty()) {
+            System.out.println("Character cannot be empty.");
+            return;
+        }
+
+        this.character = character;
+    }
+
+
     /**
      * Returns a short description of the action figure.
      *
@@ -109,6 +131,7 @@ public class ActionFigure extends Collectible {
         return "Action Figure - " + character;
     }
 
+
     /**
      * Returns all information about the action figure.
      *
@@ -116,16 +139,13 @@ public class ActionFigure extends Collectible {
      */
     @Override
     public String toString() {
-        return "ActionFigure{"
-                + "series='" + series + '\''
-                + ", sealed=" + sealed
-                + ", character='" + character + '\''
-                + '}';
+        return "ActionFigure{" + "series='" + series + '\'' + ", sealed=" + sealed + ", character='" + character + '\'' + '}';
     }
 
+
     /**
-     * Allows the user to edit the action figure's fields.
-     * Validates menu choices and user input.
+     * Allows the user to edit the action figure's fields. Validates menu
+     * choices and user input.
      */
     public void edit() {
         Scanner scanner = new Scanner(System.in);
@@ -143,15 +163,11 @@ public class ActionFigure extends Collectible {
                 option = Integer.parseInt(input);
 
                 if (option < 1 || option > 3) {
-                    System.out.println(
-                        "Invalid choice. Enter 1, 2, or 3."
-                    );
+                    System.out.println("Invalid choice. Enter 1, 2, or 3.");
                 }
             }
             catch (NumberFormatException e) {
-                System.out.println(
-                    "Invalid input. Enter a number."
-                );
+                System.out.println("Invalid input. Enter a number.");
             }
         }
 
@@ -165,44 +181,43 @@ public class ActionFigure extends Collectible {
                 if (newSeries.trim().isEmpty()) {
                     System.out.println("Series cannot be empty.");
                 }
-            } while (newSeries.trim().isEmpty());
+            }
+            while (newSeries.trim().isEmpty());
 
             setSeries(newSeries);
-        }
-        else if (option == 2) {
-            String input;
+        } else
+            if (option == 2) {
+                String input;
 
-            do {
-                System.out.print(
-                    "Is the action figure sealed? (true/false): "
-                );
-                input = scanner.nextLine().trim();
+                do {
+                    System.out.print(
+                        "Is the action figure sealed? (true/false): ");
+                    input = scanner.nextLine().trim();
 
-                if (!input.equalsIgnoreCase("true")
-                        && !input.equalsIgnoreCase("false")) {
-                    System.out.println(
-                        "Invalid input. Enter true or false."
-                    );
+                    if (!input.equalsIgnoreCase(
+                        "true") && !input.equalsIgnoreCase("false")) {
+                        System.out.println(
+                            "Invalid input. Enter true or false.");
+                    }
                 }
-            } while (!input.equalsIgnoreCase("true")
-                    && !input.equalsIgnoreCase("false"));
+                while (!input.equalsIgnoreCase(
+                    "true") && !input.equalsIgnoreCase("false"));
 
-            setSealed(Boolean.parseBoolean(input));
-        }
-        else {
-            String newCharacter;
+                setSealed(Boolean.parseBoolean(input));
+            } else {
+                String newCharacter;
 
-            do {
-                System.out.print("Enter character: ");
-                newCharacter = scanner.nextLine();
+                do {
+                    System.out.print("Enter character: ");
+                    newCharacter = scanner.nextLine();
 
-                if (newCharacter.trim().isEmpty()) {
-                    System.out.println("Character cannot be empty.");
+                    if (newCharacter.trim().isEmpty()) {
+                        System.out.println("Character cannot be empty.");
+                    }
                 }
-            } while (newCharacter.trim().isEmpty());
+                while (newCharacter.trim().isEmpty());
 
-            setCharacter(newCharacter);
-        }
+                setCharacter(newCharacter);
+            }
     }
 }
-```
