@@ -13,7 +13,8 @@ import proj2.collections.Collection;
 import java.util.NoSuchElementException;
 
 /**
- * This class is what controls the collection and interfaces with the user to edit it
+ * This class is what controls the collection and interfaces with the user to
+ * edit it
  */
 public class Driver {
     private static final String[] collectibleTypes =
@@ -23,8 +24,11 @@ public class Driver {
 
 
     /**
-     * Run is practically main, but so as not to store logic in main, we made a new method for it
-     * @param args default param
+     * Run is practically main, but so as not to store logic in main, we made a
+     * new method for it
+     *
+     * @param args
+     *     default param
      */
     public static void run(String[] args) {
         startMenu();
@@ -53,8 +57,9 @@ public class Driver {
 
 
     /**
-     * Main menu is the primary control loop of the program. Once called, it enters a loop that allows the user to
-     * add, remove, edit, or display the collection. It only allows users to remove from, edit, or display the
+     * Main menu is the primary control loop of the program. Once called, it
+     * enters a loop that allows the user to add, remove, edit, or display the
+     * collection. It only allows users to remove from, edit, or display the
      * collection if the collection is not empty.
      */
     public static void mainMenu() {
@@ -96,60 +101,57 @@ public class Driver {
 
 
     /**
-     * Prompts a user for a type of collectible, creates that kind of collectible.
-     * Add that created collectible to the current collection.
+     * Prompts a user for a type of collectible, creates that kind of
+     * collectible. Add that created collectible to the current collection.
      */
     public static void addCollectible() {
         //Create a collectible
         //Add that to the front of the collection
         String prompt = "What kind of collectible would you like to add?";
+
+        Input in = (new Input());
+
         int choice;
-        choice = (new Input()).options(prompt, collectibleTypes);
-        String name =
-            (new Input()).inputString("What is the name of your collectible?");
-        String desc =
-            (new Input()).inputString("Please add a short description.");
-        double value =
-            (new Input()).inputDouble("What is the value of your collectible?");
+        choice = in.options(prompt, collectibleTypes);
+        String name = in.inputString("What is the name of your collectible?");
+        String desc = in.inputString("Please add a short description.");
+        double value = in.inputDouble("What is the value of your collectible?");
         Collectible entry = null;
         //Yes this switch is hard coded based on collectible types don't judge me
         //Starts at 0 and goes alphabetically
         switch (choice) {
             case 0:
-                String series = (new Input()).inputString(
-                    "What series is your action figure?");
+                String series =
+                    in.inputString("What series is your action figure?");
                 String[] options = { "Sealed", "Opened" };
                 int sealedInt =
-                    (new Input()).options("Is your figure still sealed?",
-                        options);
+                    in.options("Is your figure still sealed?", options);
                 boolean sealed = sealedInt == 0;
-                String character = (new Input()).inputString(
-                    "What character is the action figure of?");
+                String character =
+                    in.inputString("What character is the action figure of?");
                 entry = new ActionFigure(name, desc, value, series, sealed,
                     character);
 
                 break;
             case 1:
-                int age = (new Input()).inputInt("How old is the stamp?");
+                int age = in.inputInt("How old is the stamp?");
                 String printLocation =
-                    (new Input()).inputString("Where was the stamp printed?");
+                    in.inputString("Where was the stamp printed?");
                 String[] misprintOptions = { "Normal", "Misprint" };
                 int misprintInt =
-                    (new Input()).options("Was your stamp misprinted?",
-                        misprintOptions);
+                    in.options("Was your stamp misprinted?", misprintOptions);
                 boolean misprint = misprintInt == 1;
                 entry =
                     new Stamp(name, desc, value, age, printLocation, misprint);
 
                 break;
             case 2:
-                String type = (new Input()).inputString(
-                    "What type of trading card is it?");
+                String type =
+                    in.inputString("What type of trading card is it?");
                 //grade should be a double
-                int grade = (new Input()).inputInt(
-                    "What is the grade of the trading card?");
-                int printYear =
-                    (new Input()).inputInt("What year was it printed?");
+                int grade =
+                    in.inputInt("What is the grade of the trading card?");
+                int printYear = in.inputInt("What year was it printed?");
                 entry =
                     new TradingCard(name, desc, value, type, grade, printYear);
 

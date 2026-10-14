@@ -11,7 +11,15 @@ import java.util.Scanner;
  */
 public class Input {
 
-    private final Scanner scan = new Scanner(System.in);
+    private final Scanner scan;
+
+
+    /**
+     * Creates a new standard-in input device
+     */
+    public Input() {
+        scan = new Scanner(System.in);
+    }
 
 
     /**
@@ -74,11 +82,11 @@ public class Input {
                 valid = false;
                 System.out.println(
                     "That String is too large! Please enter a String of less than " + charLimit + " characters.");
-            } else if (output.isEmpty()) {
-                valid = false;
-                System.out.println(
-                        "Empty input. Please input a String.");
-            }
+            } else
+                if (output.isEmpty()) {
+                    valid = false;
+                    System.out.println("Empty input. Please input a String.");
+                }
         }
 
         return output;

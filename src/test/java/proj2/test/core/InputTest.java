@@ -8,7 +8,7 @@ import proj2.core.Input;
 import student.TestCase;
 
 public class InputTest extends TestCase {
-    
+
     /**
      * Since there is no input console in junit, this is how we get around it
      *
@@ -56,13 +56,15 @@ public class InputTest extends TestCase {
      * Test
      */
     public void testInputString() {
-        setInput("pass");
+        setInput("pass", "Too Long of a String", "pass");
+
+        Input in = (new Input());
+
         String prompt = "Please input a String";
-        String output = (new Input()).inputString(prompt);
+        String output = in.inputString(prompt);
         assertEquals(output, "pass");
 
-        setInput("Too Long of a String\npass");
-        output = (new Input()).inputString(prompt, 5);
+        output = in.inputString(prompt, 5);
         assertEquals(output, "pass");
     }
 
@@ -71,13 +73,15 @@ public class InputTest extends TestCase {
      * Test
      */
     public void testInputDouble() {
-        setInput("50.61");
+        setInput("50.61", "Not a double", "-99999999999999999", "90.84");
+
+        Input in = (new Input());
+
         String prompt = "Please input a Double";
-        double output = (new Input()).inputDouble(prompt);
+        double output = in.inputDouble(prompt);
         assertTrue(output == 50.61);
 
-        setInput("Not a double\n-99999999999999999\n90.84");
-        output = (new Input()).inputDouble(prompt, 999);
+        output = in.inputDouble(prompt, 999);
         assertTrue(output == 90.84);
     }
 
@@ -86,13 +90,15 @@ public class InputTest extends TestCase {
      * Test
      */
     public void testInputInt() {
-        setInput("50");
+        setInput("50", "Not an int", "99999999999", "3.4", "90");
+
+        Input in = (new Input());
+
         String prompt = "Please input an Integer";
-        double output = (new Input()).inputInt(prompt);
+        double output = in.inputInt(prompt);
         assertTrue(output == 50);
 
-        setInput("Not an int\n99999999999\n3.4\n90");
-        output = (new Input()).inputInt(prompt, 999);
+        output = in.inputInt(prompt, 999);
         assertTrue(output == 90);
     }
 }
