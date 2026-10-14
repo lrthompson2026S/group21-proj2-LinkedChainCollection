@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Input {
 
-    private static final Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
 
 
     /**
@@ -23,7 +23,7 @@ public class Input {
      *     An array of options for the user to select from
      * @return An integer representing the option chosen.
      */
-    public static int options(String prompt, String[] options) {
+    public int options(String prompt, String[] options) {
         System.out.println(prompt);
         for (int i = 0; i < options.length; i++) {
             System.out.println("[" + i + "] " + options[i]);
@@ -63,7 +63,7 @@ public class Input {
      *     The maximum allowed character limit
      * @return The string that the user inputted
      */
-    public static String inputString(String prompt, int charLimit) {
+    public String inputString(String prompt, int charLimit) {
         System.out.println(prompt);
         boolean valid = false;
         String output = "";
@@ -88,7 +88,7 @@ public class Input {
      *     The prompt that the function will output
      * @return The string that the user inputted
      */
-    public static String inputString(String prompt) {   //Overloaded method for a default character limit of 1000
+    public String inputString(String prompt) {   //Overloaded method for a default character limit of 1000
         return inputString(prompt, 1000);
     }
 
@@ -103,7 +103,7 @@ public class Input {
      *     numbers too, i.e. a limit of 10 will make -15 invalid
      * @return The double that the user inputted
      */
-    public static double inputDouble(String prompt, int limit) {
+    public double inputDouble(String prompt, int limit) {
         System.out.println(prompt);
         String input = "";
         double output = 0;
@@ -138,7 +138,7 @@ public class Input {
      *     The prompt that the function will output
      * @return The double that the user inputted
      */
-    public static double inputDouble(String prompt) {
+    public double inputDouble(String prompt) {
         return inputDouble(prompt, 999999999);
     }
 
@@ -153,7 +153,7 @@ public class Input {
      *     numbers too, i.e. a limit of 10 will make -15 invalid
      * @return The integer that the user inputted
      */
-    public static int inputInt(String prompt, int limit) {
+    public int inputInt(String prompt, int limit) {
         System.out.println(prompt);
         String input = "";
         int output = 0;
@@ -188,7 +188,7 @@ public class Input {
      *     The prompt that the function will output
      * @return The integer that the user inputted
      */
-    public static int inputInt(String prompt) {
+    public int inputInt(String prompt) {
         return inputInt(prompt, 999999999);
     }
 }
