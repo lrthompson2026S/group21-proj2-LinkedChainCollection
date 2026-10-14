@@ -74,6 +74,10 @@ public class Input {
                 valid = false;
                 System.out.println(
                     "That String is too large! Please enter a String of less than " + charLimit + " characters.");
+            } else if (output.isEmpty()) {
+                valid = false;
+                System.out.println(
+                        "Empty input. Please input a String.");
             }
         }
 
