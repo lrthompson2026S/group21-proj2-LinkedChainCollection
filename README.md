@@ -20,7 +20,8 @@ Reflection:
     - Currently, the collection display is not consistent across all collectible types. We have also not implemented any stretch 
     goals yet. Otherwise this prototype is near complete.
 
-Next steps — in your README.md, under a “Next Steps” heading, lay out what you will do next to extend this prototype toward the final. Your plan should address:
+Next steps — in your README.md, under a “Next Steps” heading, lay out what you will do next to extend this prototype
+toward the final. Your plan should address:
 
     What is left to finish the MVP? The remaining features and fixes, in the order you will do them.
     - The MVP will be finished once the collectibles display and are editable consistently. We will fix the editing inconsistencies 
@@ -39,16 +40,18 @@ Next steps — in your README.md, under a “Next Steps” heading, lay out what
     - Lukas A: Create a new Collectible type and tests for that Collectible
     - Lukas T: Adjust Collection to function as a Collectible 
     - Rin H: Adjust display and edit to consistently output amongst all collectible types
-Attribution — in your README.md, a table with one row per class and test file listing who worked on it and how (wrote, revised, reviewed, tested, GenAI-assisted, …), plus a note on the way in which you used GenAI, if at all.
+
+Attribution — in your README.md, a table with one row per class and test file listing who worked on it and how (wrote,
+revised, reviewed, tested, GenAI-assisted, …), plus a note on the way in which you used GenAI, if at all.
 
     Elijah O:
         Wrote: Collectible, TradingCard, TradingCardTest
         Revised: README
     Lukas A:
         Wrote (Gen-AI Assisted: helped with test case ideas): ActionFigure, ActionFigureTest, Stamp, StampTest
-    Lukas T:
+    Lucas T:
         Wrote: LinkedChain interface, Collection class, and CollectionTest
-        Revised: ActionFigureTest, StampTest, TradingCardTest, and InputTest
+        Revised: ActionFigureTest, StampTest, TradingCardTest, Input, and InputTest
     Rin H:
         Wrote: README, Driver class, Input class, and InputTest
         Revised: ActionFigure, Stamp
