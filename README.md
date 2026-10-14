@@ -44,7 +44,7 @@
         Wrote (Gen-AI Assisted: helped with test case ideas): ActionFigure, ActionFigureTest, Stamp, StampTest
     Lucas T:
         Wrote: LinkedChain interface, Collection class, and CollectionTest
-        Revised: ActionFigureTest, StampTest, TradingCardTest, Input, and InputTest
+        Revised: ActionFigureTest, StampTest, TradingCardTest, Input, InputTest, README
     Rin H:
         Wrote: README, Driver class, Input class, and InputTest
         Revised: ActionFigure, Stamp
