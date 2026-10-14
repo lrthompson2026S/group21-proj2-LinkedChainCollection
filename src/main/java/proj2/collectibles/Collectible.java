@@ -1,6 +1,10 @@
 package proj2.collectibles;
 
 // -------------------------------------------------------------------------
+
+
+import java.io.Serializable;
+
 /**
  * This is the collectible class for our project. Each item within the linked
  * list is a collectible object. Items like Trading card, Stamp, or action
@@ -9,7 +13,7 @@ package proj2.collectibles;
  * @author Elijah O'Donoghue
  * @version Oct 7, 2026
  */
-public abstract class Collectible {
+public abstract class Collectible implements Serializable {
     private String name;
     private String desc;
     private double value;

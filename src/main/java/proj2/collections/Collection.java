@@ -2,6 +2,7 @@ package proj2.collections;
 
 import proj2.collectibles.Collectible;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -15,7 +16,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T> the type of collectible stored in the collection
  */
-public class Collection<T extends Collectible> implements LinkedChain<T> {
+public class Collection<T extends Collectible> implements LinkedChain<T>, Serializable {
     private Node<T> head;
     private int count;
 
@@ -406,7 +407,7 @@ public class Collection<T extends Collectible> implements LinkedChain<T> {
      *
      * @param <T> the value type
      */
-    private static class Node<T> {
+    private static class Node<T> implements Serializable{
         private T value;
         private Node<T> next;
 
