@@ -24,6 +24,7 @@
     Which stretch goals will you attempt? The ones from your scope you are committing to, and the ones you are dropping.
         - We will change Collection to be an implementor of Collectible, allowing a Collection object to exist as a sub-collection with a preexisting collection. Collections will be able to hold other Collections. 
         - We will add two more collectibles
+        - We will add the ability to save/load collections
         - We will be dropping the goal to make an external GUI for the program
     What new tests will you need? The methods and bad-input cases the added work must cover.
         - CollectionTest will need to be updated for the extra methods that allow Collection to function as a collectible
@@ -33,7 +34,7 @@
         - Elijah: Create a new Collectible type and tests for that Collectible, helps with display and edit inconsistencies
         - Lukas A: Create a new Collectible type and tests for that Collectible
         - Lucas T: Adjust Collection to function as a Collectible 
-        - Rin H: Adjust display and edit to consistently output amongst all collectible types
+        - Rin H: Adjust display and edit to consistently output amongst all collectible types, implement saving/loading collections
 
 ## Attribution
 
