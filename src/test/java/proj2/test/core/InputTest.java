@@ -11,6 +11,9 @@ import student.TestCase;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+/**
+ * Input test cases
+ */
 public class InputTest extends TestCase{
     final InputStream original = System.in;
 
