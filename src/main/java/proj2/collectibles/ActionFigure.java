@@ -1,3 +1,4 @@
+```java
 package proj2.collectibles;
 
 import java.util.Scanner;
@@ -74,7 +75,7 @@ public class ActionFigure extends Collectible {
      */
     public boolean getSealed() {
         return sealed;
-    }     
+    }
 
     /**
      * Sets the character represented by the action figure.
@@ -124,36 +125,84 @@ public class ActionFigure extends Collectible {
 
     /**
      * Allows the user to edit the action figure's fields.
+     * Validates menu choices and user input.
      */
     public void edit() {
         Scanner scanner = new Scanner(System.in);
+        int option = 0;
 
-        System.out.println("1. Edit series");
-        System.out.println("2. Edit sealed status");
-        System.out.println("3. Edit character");
+        while (option < 1 || option > 3) {
+            System.out.println("1. Edit series");
+            System.out.println("2. Edit sealed status");
+            System.out.println("3. Edit character");
+            System.out.print("Choose an option (1-3): ");
 
-        System.out.print("Choose an option: ");
+            String input = scanner.nextLine().trim();
 
-        int option = scanner.nextInt();
-        scanner.nextLine();
+            try {
+                option = Integer.parseInt(input);
+
+                if (option < 1 || option > 3) {
+                    System.out.println(
+                        "Invalid choice. Enter 1, 2, or 3."
+                    );
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println(
+                    "Invalid input. Enter a number."
+                );
+            }
+        }
 
         if (option == 1) {
-            System.out.print("Enter series: ");
-            String newSeries = scanner.nextLine();
+            String newSeries;
+
+            do {
+                System.out.print("Enter series: ");
+                newSeries = scanner.nextLine();
+
+                if (newSeries.trim().isEmpty()) {
+                    System.out.println("Series cannot be empty.");
+                }
+            } while (newSeries.trim().isEmpty());
+
             setSeries(newSeries);
         }
         else if (option == 2) {
-            System.out.print("Is the action figure sealed? (true/false): ");
-            boolean newSealed = scanner.nextBoolean();
-            setSealed(newSealed);
-        }
-        else if (option == 3) {
-            System.out.print("Enter character: ");
-            String newCharacter = scanner.nextLine();
-            setCharacter(newCharacter);
+            String input;
+
+            do {
+                System.out.print(
+                    "Is the action figure sealed? (true/false): "
+                );
+                input = scanner.nextLine().trim();
+
+                if (!input.equalsIgnoreCase("true")
+                        && !input.equalsIgnoreCase("false")) {
+                    System.out.println(
+                        "Invalid input. Enter true or false."
+                    );
+                }
+            } while (!input.equalsIgnoreCase("true")
+                    && !input.equalsIgnoreCase("false"));
+
+            setSealed(Boolean.parseBoolean(input));
         }
         else {
-            System.out.println("Invalid menu choice.");
+            String newCharacter;
+
+            do {
+                System.out.print("Enter character: ");
+                newCharacter = scanner.nextLine();
+
+                if (newCharacter.trim().isEmpty()) {
+                    System.out.println("Character cannot be empty.");
+                }
+            } while (newCharacter.trim().isEmpty());
+
+            setCharacter(newCharacter);
         }
     }
 }
+```

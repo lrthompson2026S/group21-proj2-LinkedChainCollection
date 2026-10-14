@@ -1,3 +1,4 @@
+```java
 package proj2.collectibles;
 
 import java.util.Scanner;
@@ -124,37 +125,97 @@ public class Stamp extends Collectible {
 
     /**
      * Allows the user to edit the stamp's fields.
+     * Validates menu choices and user input.
      */
     public void edit() {
         Scanner scanner = new Scanner(System.in);
+        int option = 0;
 
-        System.out.println("1. Edit age");
-        System.out.println("2. Edit print location");
-        System.out.println("3. Edit misprint");
+        while (option < 1 || option > 3) {
+            System.out.println("1. Edit age");
+            System.out.println("2. Edit print location");
+            System.out.println("3. Edit misprint");
+            System.out.print("Choose an option (1-3): ");
 
-        System.out.print("Choose an option: ");
+            String input = scanner.nextLine().trim();
 
-        int option = scanner.nextInt();
-        scanner.nextLine();
+            try {
+                option = Integer.parseInt(input);
+
+                if (option < 1 || option > 3) {
+                    System.out.println(
+                        "Invalid choice. Enter 1, 2, or 3."
+                    );
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println(
+                    "Invalid input. Enter a number."
+                );
+            }
+        }
 
         if (option == 1) {
-            System.out.print("Enter age: ");
-            int newAge = scanner.nextInt();
-            scanner.nextLine();
+            int newAge = -1;
+
+            while (newAge < 0) {
+                System.out.print("Enter age: ");
+                String input = scanner.nextLine().trim();
+
+                try {
+                    newAge = Integer.parseInt(input);
+
+                    if (newAge < 0) {
+                        System.out.println(
+                            "Age cannot be negative."
+                        );
+                    }
+                }
+                catch (NumberFormatException e) {
+                    System.out.println(
+                        "Invalid input. Enter a whole number."
+                    );
+                }
+            }
+
             setAge(newAge);
         }
         else if (option == 2) {
-            System.out.print("Enter print location: ");
-            String newLocation = scanner.nextLine();
+            String newLocation;
+
+            do {
+                System.out.print("Enter print location: ");
+                newLocation = scanner.nextLine();
+
+                if (newLocation.trim().isEmpty()) {
+                    System.out.println(
+                        "Print location cannot be empty."
+                    );
+                }
+            } while (newLocation.trim().isEmpty());
+
             setPrintLocation(newLocation);
         }
-        else if (option == 3) {
-            System.out.print("Is this stamp a misprint? (true/false): ");
-            boolean newMisprint = scanner.nextBoolean();
-            setMisprint(newMisprint);
-        }
         else {
-            System.out.println("Invalid menu choice.");
+            String input;
+
+            do {
+                System.out.print(
+                    "Is this stamp a misprint? (true/false): "
+                );
+                input = scanner.nextLine().trim();
+
+                if (!input.equalsIgnoreCase("true")
+                        && !input.equalsIgnoreCase("false")) {
+                    System.out.println(
+                        "Invalid input. Enter true or false."
+                    );
+                }
+            } while (!input.equalsIgnoreCase("true")
+                    && !input.equalsIgnoreCase("false"));
+
+            setMisprint(Boolean.parseBoolean(input));
         }
     }
 }
+```
