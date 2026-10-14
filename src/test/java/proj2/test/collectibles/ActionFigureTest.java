@@ -1,15 +1,14 @@
-```java
 package proj2.collectibles;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests the methods of the ActionFigure class.
@@ -18,6 +17,7 @@ public class ActionFigureTest {
 
     private ActionFigure figure;
 
+
     /**
      * Creates a new ActionFigure before each test.
      */
@@ -25,6 +25,7 @@ public class ActionFigureTest {
     public void setUp() {
         figure = new ActionFigure();
     }
+
 
     /**
      * Tests the default constructor.
@@ -36,6 +37,7 @@ public class ActionFigureTest {
         assertEquals("", figure.getCharacter());
     }
 
+
     /**
      * Tests setting and getting the series.
      */
@@ -45,6 +47,7 @@ public class ActionFigureTest {
 
         assertEquals("Marvel Legends", figure.getSeries());
     }
+
 
     /**
      * Tests that setting the series to null is rejected.
@@ -57,6 +60,7 @@ public class ActionFigureTest {
         assertEquals("Marvel Legends", figure.getSeries());
     }
 
+
     /**
      * Tests that setting the series to an empty string is rejected.
      */
@@ -67,6 +71,7 @@ public class ActionFigureTest {
 
         assertEquals("Marvel Legends", figure.getSeries());
     }
+
 
     /**
      * Tests setting and getting the sealed status.
@@ -80,6 +85,7 @@ public class ActionFigureTest {
         assertFalse(figure.getSealed());
     }
 
+
     /**
      * Tests setting and getting the character.
      */
@@ -89,6 +95,7 @@ public class ActionFigureTest {
 
         assertEquals("Spider-Man", figure.getCharacter());
     }
+
 
     /**
      * Tests that setting the character to null is rejected.
@@ -101,6 +108,7 @@ public class ActionFigureTest {
         assertEquals("Spider-Man", figure.getCharacter());
     }
 
+
     /**
      * Tests that setting the character to an empty string is rejected.
      */
@@ -112,6 +120,7 @@ public class ActionFigureTest {
         assertEquals("Spider-Man", figure.getCharacter());
     }
 
+
     /**
      * Tests the info method.
      */
@@ -121,6 +130,7 @@ public class ActionFigureTest {
 
         assertEquals("Action Figure - Spider-Man", figure.info());
     }
+
 
     /**
      * Tests toString with populated fields.
@@ -132,27 +142,26 @@ public class ActionFigureTest {
         figure.setCharacter("Spider-Man");
 
         assertEquals(
-            "ActionFigure{series='Marvel Legends', sealed=true, "
-                + "character='Spider-Man'}",
-            figure.toString()
-        );
+            "ActionFigure{series='Marvel Legends', sealed=true, " + "character='Spider-Man'}",
+            figure.toString());
     }
+
 
     /**
      * Tests toString with default values.
      */
     @Test
     public void testToStringDefaultValues() {
-        assertEquals(
-            "ActionFigure{series='', sealed=false, character=''}",
-            figure.toString()
-        );
+        assertEquals("ActionFigure{series='', sealed=false, character=''}",
+            figure.toString());
     }
+
 
     /**
      * Runs edit with simulated input and captures its output.
      *
-     * @param input the input to provide to edit
+     * @param input
+     *     the input to provide to edit
      * @return the text printed by edit
      */
     private String runEdit(String input) {
@@ -162,8 +171,7 @@ public class ActionFigureTest {
 
         try {
             System.setIn(new ByteArrayInputStream(
-                input.getBytes(java.nio.charset.StandardCharsets.UTF_8)
-            ));
+                input.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
             System.setOut(new PrintStream(output));
 
             figure.edit();
@@ -176,6 +184,7 @@ public class ActionFigureTest {
         }
     }
 
+
     /**
      * Tests editing the series through the menu.
      */
@@ -186,6 +195,7 @@ public class ActionFigureTest {
         assertEquals("Marvel Legends", figure.getSeries());
     }
 
+
     /**
      * Tests editing the sealed status to true.
      */
@@ -195,6 +205,7 @@ public class ActionFigureTest {
 
         assertTrue(figure.getSealed());
     }
+
 
     /**
      * Tests editing the sealed status to false.
@@ -208,6 +219,7 @@ public class ActionFigureTest {
         assertFalse(figure.getSealed());
     }
 
+
     /**
      * Tests editing the character through the menu.
      */
@@ -217,6 +229,7 @@ public class ActionFigureTest {
 
         assertEquals("Spider-Man", figure.getCharacter());
     }
+
 
     /**
      * Tests that an invalid menu choice is rejected.
@@ -229,6 +242,7 @@ public class ActionFigureTest {
         assertEquals("Marvel Legends", figure.getSeries());
     }
 
+
     /**
      * Tests that nonnumeric menu input is rejected.
      */
@@ -239,6 +253,7 @@ public class ActionFigureTest {
         assertTrue(output.contains("Invalid input"));
         assertEquals("Marvel Legends", figure.getSeries());
     }
+
 
     /**
      * Tests that an empty series is rejected and requested again.
@@ -251,6 +266,7 @@ public class ActionFigureTest {
         assertEquals("Marvel Legends", figure.getSeries());
     }
 
+
     /**
      * Tests that an empty character is rejected and requested again.
      */
@@ -261,6 +277,7 @@ public class ActionFigureTest {
         assertTrue(output.contains("Character cannot be empty."));
         assertEquals("Spider-Man", figure.getCharacter());
     }
+
 
     /**
      * Tests that invalid sealed input is rejected and requested again.
@@ -273,6 +290,7 @@ public class ActionFigureTest {
         assertTrue(figure.getSealed());
     }
 
+
     /**
      * Tests that whitespace-only series input is rejected.
      */
@@ -283,6 +301,7 @@ public class ActionFigureTest {
         assertTrue(output.contains("Series cannot be empty."));
         assertEquals("Marvel Legends", figure.getSeries());
     }
+
 
     /**
      * Tests that whitespace-only character input is rejected.
@@ -295,4 +314,3 @@ public class ActionFigureTest {
         assertEquals("Spider-Man", figure.getCharacter());
     }
 }
-```

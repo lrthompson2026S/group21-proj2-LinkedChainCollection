@@ -1,15 +1,14 @@
-```java
 package proj2.collectibles;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Tests the methods of the Stamp class.
@@ -18,6 +17,7 @@ public class StampTest {
 
     private Stamp stamp;
 
+
     /**
      * Creates a new Stamp before each test.
      */
@@ -25,6 +25,7 @@ public class StampTest {
     public void setUp() {
         stamp = new Stamp();
     }
+
 
     /**
      * Tests the default constructor.
@@ -36,6 +37,7 @@ public class StampTest {
         assertFalse(stamp.getMisprint());
     }
 
+
     /**
      * Tests setting and getting the age.
      */
@@ -45,6 +47,7 @@ public class StampTest {
 
         assertEquals(25, stamp.getAge());
     }
+
 
     /**
      * Tests that a negative age is rejected.
@@ -57,6 +60,7 @@ public class StampTest {
         assertEquals(25, stamp.getAge());
     }
 
+
     /**
      * Tests that zero is a valid age.
      */
@@ -68,6 +72,7 @@ public class StampTest {
         assertEquals(0, stamp.getAge());
     }
 
+
     /**
      * Tests setting and getting the print location.
      */
@@ -77,6 +82,7 @@ public class StampTest {
 
         assertEquals("United States", stamp.getPrintLocation());
     }
+
 
     /**
      * Tests that a null print location is rejected.
@@ -89,6 +95,7 @@ public class StampTest {
         assertEquals("United States", stamp.getPrintLocation());
     }
 
+
     /**
      * Tests that an empty print location is rejected.
      */
@@ -99,6 +106,7 @@ public class StampTest {
 
         assertEquals("United States", stamp.getPrintLocation());
     }
+
 
     /**
      * Tests setting and getting the misprint status.
@@ -112,6 +120,7 @@ public class StampTest {
         assertFalse(stamp.getMisprint());
     }
 
+
     /**
      * Tests the info method.
      */
@@ -121,6 +130,7 @@ public class StampTest {
 
         assertEquals("Stamp - United States", stamp.info());
     }
+
 
     /**
      * Tests toString with populated fields.
@@ -133,25 +143,25 @@ public class StampTest {
 
         assertEquals(
             "Stamp{age=25, printLocation='United States', misprint=true}",
-            stamp.toString()
-        );
+            stamp.toString());
     }
+
 
     /**
      * Tests toString with default values.
      */
     @Test
     public void testToStringDefaultValues() {
-        assertEquals(
-            "Stamp{age=0, printLocation='', misprint=false}",
-            stamp.toString()
-        );
+        assertEquals("Stamp{age=0, printLocation='', misprint=false}",
+            stamp.toString());
     }
+
 
     /**
      * Runs edit with simulated input and captures its output.
      *
-     * @param input the input to provide to edit
+     * @param input
+     *     the input to provide to edit
      * @return the text printed by edit
      */
     private String runEdit(String input) {
@@ -161,8 +171,7 @@ public class StampTest {
 
         try {
             System.setIn(new ByteArrayInputStream(
-                input.getBytes(java.nio.charset.StandardCharsets.UTF_8)
-            ));
+                input.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
             System.setOut(new PrintStream(output));
 
             stamp.edit();
@@ -175,6 +184,7 @@ public class StampTest {
         }
     }
 
+
     /**
      * Tests editing the age through the menu.
      */
@@ -184,6 +194,7 @@ public class StampTest {
 
         assertEquals(25, stamp.getAge());
     }
+
 
     /**
      * Tests editing the print location through the menu.
@@ -195,6 +206,7 @@ public class StampTest {
         assertEquals("United States", stamp.getPrintLocation());
     }
 
+
     /**
      * Tests editing the misprint status to true.
      */
@@ -204,6 +216,7 @@ public class StampTest {
 
         assertTrue(stamp.getMisprint());
     }
+
 
     /**
      * Tests editing the misprint status to false.
@@ -217,6 +230,7 @@ public class StampTest {
         assertFalse(stamp.getMisprint());
     }
 
+
     /**
      * Tests that an invalid menu choice is rejected.
      */
@@ -227,6 +241,7 @@ public class StampTest {
         assertTrue(output.contains("Invalid choice"));
         assertEquals(25, stamp.getAge());
     }
+
 
     /**
      * Tests that nonnumeric menu input is rejected.
@@ -239,6 +254,7 @@ public class StampTest {
         assertEquals(25, stamp.getAge());
     }
 
+
     /**
      * Tests that nonnumeric age input is rejected.
      */
@@ -249,6 +265,7 @@ public class StampTest {
         assertTrue(output.contains("Invalid input"));
         assertEquals(25, stamp.getAge());
     }
+
 
     /**
      * Tests that negative age input is rejected.
@@ -261,6 +278,7 @@ public class StampTest {
         assertEquals(25, stamp.getAge());
     }
 
+
     /**
      * Tests that an empty print location is rejected.
      */
@@ -271,6 +289,7 @@ public class StampTest {
         assertTrue(output.contains("Print location cannot be empty."));
         assertEquals("United States", stamp.getPrintLocation());
     }
+
 
     /**
      * Tests that whitespace-only print location input is rejected.
@@ -283,6 +302,7 @@ public class StampTest {
         assertEquals("United States", stamp.getPrintLocation());
     }
 
+
     /**
      * Tests that invalid misprint input is rejected.
      */
@@ -294,4 +314,3 @@ public class StampTest {
         assertTrue(stamp.getMisprint());
     }
 }
-```
