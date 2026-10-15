@@ -7,9 +7,9 @@ import java.io.File;
 
 /**
  * This class handles saving and loading files
+ * It saves to a folder called "Saves" inside the project directory.
  */
 public class Save {
-
     private static final String folderName = "Saves";
 
     /**
@@ -46,8 +46,14 @@ public class Save {
      * @param target   The object to be saved
      * @param filename The name for the file to have, not including ".ser"
      */
-    //TODO: add validation for filename
     public static void save(Object target, String filename){
+        boolean valid = validateFilename(filename);
+        String prompt = "You have entered an invalid filename. Please name your file without using any of the following characters:\n\\, /, :, *, ?, \", <, >, and |";
+        while(!valid){
+            filename = (new Input()).inputString(prompt, 50);
+            valid = validateFilename(filename);
+        }
+
         System.out.println("Saving object in file " + filename + "...");
         String filepath = folderName + File.separator + filename + ".ser";
 
@@ -105,5 +111,29 @@ public class Save {
         }
 
         return loadedObject;
+    }
+
+    /**
+     * Checks to see if a given string does not use characters that windows views as invalid
+     *
+     * @param filename The proposed name of the file
+     * @return  Whether the proposed filename is valid or not
+     */
+    public static boolean validateFilename(String filename){
+        if(filename.isBlank() || filename.length() > 50){
+            return false;
+        }
+
+        char[] invalidChar = {'\\', '/', ':', '*', '?', '"', '<', '>', '|'};
+
+        for(char i : filename.toCharArray()){
+            for(char j : invalidChar){
+                if(i == j){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

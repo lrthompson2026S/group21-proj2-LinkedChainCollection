@@ -233,14 +233,20 @@ public class Driver implements Serializable{
         System.out.println();
     }
 
+    /**
+     * Sets the current collection equal to a collection selected from the Saves folder
+     */
     public static void loadCollection(){
         String target = Save.selectSave();
         currentCollection = (Collection) Save.load(target);
         //return file (?)
     }
 
+    /**
+     * Saves the current collection with a filename inputting by the user
+     */
     public static void saveCollection(){
-        String filename = (new Input()).inputString("What would you like to call your collection?", 20);
+        String filename = (new Input()).inputString("What would you like to call your collection?", 50);
         Save.save(currentCollection, filename);
     }
 }

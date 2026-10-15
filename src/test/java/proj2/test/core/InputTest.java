@@ -19,7 +19,6 @@ public class InputTest extends TestCase {
         setSystemIn(input);
     }
 
-
     /**
      * Restores the input stream to the default
      */
@@ -32,7 +31,6 @@ public class InputTest extends TestCase {
     public void setUp() {
 
     }
-
 
     @Override
     public void tearDown() {
