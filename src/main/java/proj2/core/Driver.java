@@ -35,25 +35,34 @@ public class Driver implements Serializable{
      * Start menu allows the user to create a new collection
      */
     public static void startMenu() {
-        String prompt = "Would you like to start a new collection?";
+        String prompt = "What would you like to do?";
         String[] options = { "Exit", "Start a new collection.", "Load a preexisting collection" };
         int choice;
-        choice = (new Input()).options(prompt, options);
+        boolean valid = false;
 
-        switch (choice) {
-            case 0:
-                break;
-            case 1:
-                currentCollection = new Collection<>();
-                mainMenu();
-                break;
-            case 2:
-                loadCollection();
-                mainMenu();
-                break;
+        while(!valid) {
+            valid = true;
+            choice = (new Input()).options(prompt, options);
+
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    currentCollection = new Collection<>();
+                    mainMenu();
+                    break;
+                case 2:
+                    loadCollection();
+                    if (currentCollection != null) {
+                        mainMenu();
+                    } else {
+                        valid = false;
+                        System.out.println("Failed to load collection.");
+                    }
+                    break;
+            }
         }
     }
-
 
     /**
      * Main menu is the primary control loop of the program. Once called, it enters a loop that allows the user to
@@ -98,7 +107,6 @@ public class Driver implements Serializable{
             }
         }
     }
-
 
     /**
      * Prompts a user for a type of collectible, creates that kind of collectible.
@@ -163,7 +171,6 @@ public class Driver implements Serializable{
         currentCollection.add(entry);
     }
 
-
     /**
      * Choose a collectible from the current collection
      *
@@ -190,18 +197,15 @@ public class Driver implements Serializable{
         return collectibles[choice];
     }
 
-
     /**
      * Removes the currently selected collectible from the collection
      */
-    public static Collectible removeCollectible() {
+    public static void removeCollectible() {
         if (currentCollection.isEmpty()) {
             throw new NoSuchElementException();
         }
-        Object removed = currentCollection.remove(hover);
-        return (Collectible)removed;
+        currentCollection.remove(hover);
     }
-
 
     /**
      * Calls the edit() function of the currently selected collectible
@@ -211,7 +215,6 @@ public class Driver implements Serializable{
             hover.edit();
         }
     }
-
 
     /**
      * Displays the toString() of every collectible in the current collection
@@ -231,38 +234,13 @@ public class Driver implements Serializable{
     }
 
     public static void loadCollection(){
-        System.out.println("Loading collection");
-        String filename = "serialTest.ser";
-        try {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-            currentCollection = (Collection) in.readObject();
-            in.close();
-            file.close();
-            System.out.println("Object has been deserialized");
-
-        } catch (IOException ex) {
-            System.out.println("IOException is caught");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException is caught");
-        }
+        String target = Save.selectSave();
+        currentCollection = (Collection) Save.load(target);
+        //return file (?)
     }
 
     public static void saveCollection(){
-        String filename = "serialTest.ser";
-        Collection serialize = currentCollection;
-        try {
-            FileOutputStream file = new FileOutputStream(filename);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(serialize);
-            out.close();
-            file.close();
-            System.out.println("Collection has been serialized");
-
-        } catch (IOException ioe) {
-            System.out.println("An error occurred during serialization");
-            System.out.println(ioe.getMessage());
-        }
+        String filename = (new Input()).inputString("What would you like to call your collection?", 20);
+        Save.save(currentCollection, filename);
     }
 }
