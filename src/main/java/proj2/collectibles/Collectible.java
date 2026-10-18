@@ -1,5 +1,7 @@
 package proj2.collectibles;
 
+import proj2.core.Input;
+
 // -------------------------------------------------------------------------
 /**
  * This is the collectible class for our project. Each item within the linked
@@ -7,7 +9,7 @@ package proj2.collectibles;
  * figure extend this.
  * 
  * @author Elijah O'Donoghue
- * @version Oct 7, 2026
+ * @version Oct 18, 2026
  */
 public abstract class Collectible {
     private String name;
@@ -156,7 +158,54 @@ public abstract class Collectible {
     }
 
 
-    public abstract void edit();
+    // ----------------------------------------------------------
+    /**
+     * Allows the user to edit common collectible properties.
+     */
+    public void edit() {
+        Input input = new Input();
+
+        System.out.println("1. Edit name");
+        System.out.println("2. Edit description");
+        System.out.println("3. Edit value");
+        System.out.print("Choose an option: ");
+
+        int option = input.inputInt("", 3);
+
+        if (option >= 1 && option <= 3) {
+            editCommon(option, input);
+        }
+        else {
+            System.out.println("Invalid menu choice.");
+        }
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Edits properties shared by all collectibles.
+     *
+     * @param option
+     *            1 for name, 2 for description, 3 for value
+     * @param input
+     *            Input object used to receive user input
+     */
+    protected void editCommon(int option, Input input) {
+        if (option == 1) {
+            String newName = input.inputString("Enter name: ", 1000);
+            setName(newName);
+        }
+        else if (option == 2) {
+            String newDesc = input.inputString("Enter description: ", 1000);
+            setDesc(newDesc);
+        }
+        else if (option == 3) {
+            double newValue = input.inputDouble(
+                "Enter value: ", 9999999);
+            setValue(newValue);
+        }
+    }
+
 
     @Override
     public abstract String toString();
