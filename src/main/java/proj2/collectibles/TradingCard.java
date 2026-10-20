@@ -1,7 +1,7 @@
 package proj2.collectibles;
 
-import java.util.Scanner;
 import proj2.core.Input;
+
 
 // -------------------------------------------------------------------------
 /**
@@ -9,11 +9,11 @@ import proj2.core.Input;
  * should use if they want to create a new trading card class.
  * 
  * @author Elijah O'Donoghue
- * @version Oct 7, 2026
+ * @version Oct 18, 2026
  */
 public class TradingCard extends Collectible {
     private String type;
-    private int grade;
+    private double grade;
     private int printYear;
 
     // ----------------------------------------------------------
@@ -23,7 +23,7 @@ public class TradingCard extends Collectible {
     public TradingCard() {
         super();
         this.type = "Unknown";
-        this.grade = 0;
+        this.grade = 0.0;
         this.printYear = 0;
     }
 
@@ -50,7 +50,7 @@ public class TradingCard extends Collectible {
         String desc,
         double value,
         String type,
-        int grade,
+        double grade,
         int printYear) {
         super(name, desc, value);
         setType(type);
@@ -78,7 +78,7 @@ public class TradingCard extends Collectible {
      * @param grade
      *            Int grade of trading card
      */
-    public void setGrade(int grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 
@@ -102,7 +102,7 @@ public class TradingCard extends Collectible {
      * @return grade
      *         int grade
      */
-    public int getGrade() {
+    public double getGrade() {
         return this.grade;
     }
 
@@ -147,9 +147,10 @@ public class TradingCard extends Collectible {
     }
 
 
+
     @Override
     public void edit() {
-        Scanner scanner = new Scanner(System.in);
+        Input input = new Input();
 
         System.out.println("1. Edit name");
         System.out.println("2. Edit description");
@@ -159,44 +160,28 @@ public class TradingCard extends Collectible {
         System.out.println("6. Edit print year");
 
         System.out.print("Choose an option: ");
+        int option = input.inputInt("", 6);
 
-        int option = scanner.nextInt();
-        scanner.nextLine();
-
-        if (option == 1) {
-            System.out.print("Enter name: ");
-            String newName = scanner.nextLine();
-            setName(newName);
-        }
-        else if (option == 2) {
-            System.out.print("Enter description: ");
-            String newDesc = scanner.nextLine();
-            setDesc(newDesc);
-        }
-        else if (option == 3) {
-            System.out.print("Enter value: ");
-            double newValue = scanner.nextDouble();
-            setValue(newValue);
+        if (option >= 1 && option <= 3) {
+            editCommon(option, input);
         }
         else if (option == 4) {
-            System.out.print("Enter type: ");
-            String newType = scanner.nextLine();
+            String newType = input.inputString("Enter type: ", 1000);
             setType(newType);
         }
         else if (option == 5) {
-            System.out.print("Enter grade: ");
-            int newGrade = scanner.nextInt();
+            double newGrade = input.inputDouble("Enter grade: ", 10);
             setGrade(newGrade);
         }
         else if (option == 6) {
-            System.out.print("Enter print year: ");
-            int newYear = scanner.nextInt();
+            int newYear = input.inputInt("Enter print year: ", 9999);
             setPrintYear(newYear);
         }
         else {
             System.out.println("Invalid menu choice.");
         }
     }
+
 }
 
 /*
