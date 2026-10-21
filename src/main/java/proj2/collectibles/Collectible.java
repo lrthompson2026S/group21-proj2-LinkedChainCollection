@@ -45,9 +45,24 @@ public abstract class Collectible implements Serializable {
      *     Double value of the collectible item
      */
     public Collectible(String name, String desc, double value) {
-        this.name = name;
-        this.desc = desc;
-        this.value = value;
+        setName(name);
+        setDesc(desc);
+        setValue(value);
+    }
+
+
+    /**
+     * Create a new Collectible object.
+     *
+     * @param name
+     *     String name of the collectible item, between 1 and 1000 chars
+     * @param desc
+     *     String desc of the collectible item
+     */
+    public Collectible(String name, String desc) {
+        setName(name);
+        setDesc(desc);
+        this.value = 0;
     }
 
     // ----------------------------------------------------------
