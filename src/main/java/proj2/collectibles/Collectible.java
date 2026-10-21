@@ -4,14 +4,13 @@ import proj2.core.Input;
 
 // -------------------------------------------------------------------------
 
-
 import java.io.Serializable;
 
 /**
  * This is the collectible class for our project. Each item within the linked
  * list is a collectible object. Items like Trading card, Stamp, or action
  * figure extend this.
- * 
+ *
  * @author Elijah O'Donoghue
  * @version Oct 18, 2026
  */
@@ -21,6 +20,8 @@ public abstract class Collectible implements Serializable {
     private double value;
 
     // ----------------------------------------------------------
+
+
     /**
      * This creates the Collectible object and uses default values
      */
@@ -30,17 +31,18 @@ public abstract class Collectible implements Serializable {
         this.value = 0.0;
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * Create a new Collectible object.
-     * 
+     *
      * @param name
-     *            String name of the collectible item, between 1 and 1000 chars
+     *     String name of the collectible item, between 1 and 1000 chars
      * @param desc
-     *            String desc of the collectible item
+     *     String desc of the collectible item
      * @param value
-     *            Double value of the collectible item
+     *     Double value of the collectible item
      */
     public Collectible(String name, String desc, double value) {
         setName(name);
@@ -49,68 +51,86 @@ public abstract class Collectible implements Serializable {
     }
 
 
+    /**
+     * Create a new Collectible object.
+     *
+     * @param name
+     *     String name of the collectible item, between 1 and 1000 chars
+     * @param desc
+     *     String desc of the collectible item
+     */
+    public Collectible(String name, String desc) {
+        setName(name);
+        setDesc(desc);
+        this.value = 0;
+    }
+
     // ----------------------------------------------------------
+
+
     /**
      * returns name
-     * 
+     *
      * @return name
      */
     public String getName() {
         return this.name;
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * sets the name of the collectible to the inputed string
-     * 
+     *
      * @param name
-     *            string name of the collectible
+     *     string name of the collectible
      */
     public void setName(String name) {
         if (name != null && !name.trim().isEmpty() && name.length() <= 1000) {
             this.name = name;
-        }
-        else {
+        } else {
             System.out.println(
                 "Error: Name must be between 1 and 1000 characters.");
         }
     }
 
-
     // ----------------------------------------------------------
-    /**
-     * Sets the description of the collectible to the given string
-     * 
-     * @param desc
-     *            String description of the collectible
-     */
-    public void setDesc(String desc) {
-        if (desc != null && desc.length() <= 1000) {
-            this.desc = desc;
-        }
-        else {
-            System.out.println(
-                "Error: Description must be 1000 characters or fewer.");
-        }
-    }
 
 
-    // ----------------------------------------------------------
     /**
      * returns the description of the collectible
-     * 
+     *
      * @return string description
      */
     public String getDesc() {
         return this.desc;
     }
 
+    // ----------------------------------------------------------
+
+
+    /**
+     * Sets the description of the collectible to the given string
+     *
+     * @param desc
+     *     String description of the collectible
+     */
+    public void setDesc(String desc) {
+        if (desc != null && desc.length() <= 1000) {
+            this.desc = desc;
+        } else {
+            System.out.println(
+                "Error: Description must be 1000 characters or fewer.");
+        }
+    }
 
     // ----------------------------------------------------------
+
+
     /**
      * returns the value of the given collectible
-     * 
+     *
      * @return double value of collectible
      */
     public double getValue() {
@@ -118,51 +138,54 @@ public abstract class Collectible implements Serializable {
 
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * Sets the value of the collectible to the given double value
-     * 
+     *
      * @param value
-     *            double value of the collectible
+     *     double value of the collectible
      */
     public void setValue(double value) {
         if (value >= 0.0 && value <= 9999999.0) {
             this.value = value;
-        }
-        else {
+        } else {
             System.out.println(
                 "Error: Value must be non-negative and capped at $9,999,999.");
         }
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * This method returns a one line string of information. This one line of
      * information contains the name and the value in the format [name] -
      * $[value]
-     * 
+     *
      * @return string information
      */
     public String info() {
-        String information = this.name + " - $" + String.valueOf(this.value);
+        String information = this.getName() + " - $" + this.getValue();
         return information;
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * leaves the output to the implementations of toString
-     * 
+     *
      * @return String
      */
     public String view() {
         return toString();
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * Allows the user to edit common collectible properties.
      */
@@ -178,35 +201,36 @@ public abstract class Collectible implements Serializable {
 
         if (option >= 1 && option <= 3) {
             editCommon(option, input);
-        }
-        else {
+        } else {
             System.out.println("Invalid menu choice.");
         }
     }
 
-
     // ----------------------------------------------------------
+
+
     /**
      * Edits properties shared by all collectibles.
      *
      * @param option
-     *            1 for name, 2 for description, 3 for value
+     *     1 for name, 2 for description, 3 for value
      * @param input
-     *            Input object used to receive user input
+     *     Input object used to receive user input
      */
     protected void editCommon(int option, Input input) {
-        if (option == 1) {
-            String newName = input.inputString("Enter name: ", 1000);
-            setName(newName);
-        }
-        else if (option == 2) {
-            String newDesc = input.inputString("Enter description: ", 1000);
-            setDesc(newDesc);
-        }
-        else if (option == 3) {
-            double newValue = input.inputDouble(
-                "Enter value: ", 9999999);
-            setValue(newValue);
+        switch (option) {
+            case 1:
+                String newName = input.inputString("Enter name: ", 1000);
+                setName(newName);
+                break;
+            case 2:
+                String newDesc = input.inputString("Enter description: ", 1000);
+                setDesc(newDesc);
+                break;
+            case 3:
+                double newValue = input.inputDouble("Enter value: ", 9999999);
+                setValue(newValue);
+                break;
         }
     }
 

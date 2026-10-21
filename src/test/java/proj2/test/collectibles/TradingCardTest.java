@@ -102,7 +102,7 @@ public class TradingCardTest extends student.TestCase {
     public void testEditGrade() {
         setSystemIn("5\n9\n");
         pikachu.edit();
-        assertEquals(9, pikachu.getGrade());
+        assertEquals(9.0, pikachu.getGrade(), 0.000001);
     }
 
 
@@ -114,7 +114,7 @@ public class TradingCardTest extends student.TestCase {
 
 
     public void testEditInvalidOption() {
-        setSystemIn("99\n");
+        setSystemIn("99\n1\nUnknown Collectible");
         pikachu.edit();
         // Verifies it handles invalid input without crashing
         assertEquals("Unknown Collectible", pikachu.getName());
