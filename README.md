@@ -32,7 +32,7 @@
         - We will potentially need to update the edit and display tests after we fix their existing issues. 
     Who does what? Which team member owns each remaining item.
         - Elijah: Create a new Collectible type and tests for that Collectible, helps with display and edit inconsistencies
-        - Lukas A: Create a new Collectible type and tests for that Collectible
+        - Lucas A: Create a new Collectible type and tests for that Collectible
         - Lucas T: Adjust Collection to function as a Collectible 
         - Rin H: Adjust display and edit to consistently output amongst all collectible types, implement saving/loading collections
 
@@ -41,7 +41,7 @@
     Elijah O:
         Wrote: Collectible, TradingCard, TradingCardTest
         Revised: README
-    Lukas A:
+    Lucas A:
         Wrote (Gen-AI Assisted: helped with test case ideas): ActionFigure, ActionFigureTest, Stamp, StampTest
     Lucas T:
         Wrote: LinkedChain interface, Collection class, and CollectionTest
