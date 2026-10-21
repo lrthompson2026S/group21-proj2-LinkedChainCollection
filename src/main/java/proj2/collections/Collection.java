@@ -1,6 +1,7 @@
 package proj2.collections;
 
 import proj2.collectibles.Collectible;
+import proj2.core.Input;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,9 +15,11 @@ import java.util.NoSuchElementException;
  * the most recently inserted item first. Duplicates are permitted. Equality
  * compares the stored items without considering their iteration order.
  *
- * @param <T> the type of collectible stored in the collection
+ * @param <T>
+ *     the type of collectible stored in the collection
  */
-public class Collection<T extends Collectible> implements LinkedChain<T>, Serializable {
+public class Collection<T extends Collectible> extends Collectible
+    implements LinkedChain<T> {
     private Node<T> head;
     private int count;
 
@@ -25,45 +28,86 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
      * Constructs an empty collection.
      */
     public Collection() {
+        this("Unnamed Collection", "None");
+    }
+
+
+    /**
+     * Constructs an empty, named collection. Like other collectibles, the
+     * collection has its own value, independent of the items it contains.
+     *
+     * @param name
+     *     the collection name
+     * @param desc
+     *     the collection description
+     */
+    public Collection(String name, String desc) {
+        super(name, desc, 0.0);
         head = null;
         count = 0;
     }
 
 
     /**
-     * Constructs a collection from a Java collection.
-     * Items are inserted one by one at the head of the chain.
+     * Constructs a named collection containing the supplied items.
      *
-     * @param items the items to add
-     * @throws NullPointerException if {@code items} is null
-     * @throws IllegalArgumentException if {@code items} contains null
+     * @param name
+     *     the collection name
+     * @param desc
+     *     the collection description
+     * @param items
+     *     the items to add
+     */
+    public Collection(String name,
+        String desc,
+        java.util.Collection<? extends T> items) {
+        this(name, desc);
+        addAll(items);
+    }
+
+
+    /**
+     * Constructs a collection from a Java collection. Items are inserted one by
+     * one at the head of the chain.
+     *
+     * @param items
+     *     the items to add
+     * @throws NullPointerException
+     *     if {@code items} is null
+     * @throws IllegalArgumentException
+     *     if {@code items} contains null
      */
     public Collection(java.util.Collection<T> items) {
         this(); // default
-        add(items);
+        addAll(items);
     }
 
 
     /**
-     * Constructs a collection containing the items of another linked
-     * collection. Insertion at the head reverses the source iteration order.
+     * Copies another collection's metadata and items. Insertion at the head
+     * reverses the source iteration order.
      *
-     * @param items the source linked collection
-     * @throws NullPointerException if {@code items} is null
+     * @param items
+     *     the source linked collection
+     * @throws NullPointerException
+     *     if {@code items} is null
      */
     public Collection(Collection<T> items) {
-        this(); // default
-        add(items);
+        this(items.getName(), items.getDesc());
+        addAll(items);
     }
 
 
     /**
-     * Constructs a collection from an array.
-     * Items are inserted one by one at the head of the chain.
+     * Constructs a collection from an array. Items are inserted one by one at
+     * the head of the chain.
      *
-     * @param items the array of items to add
-     * @throws NullPointerException if {@code items} is null
-     * @throws IllegalArgumentException if {@code items} contains null
+     * @param items
+     *     the array of items to add
+     * @throws NullPointerException
+     *     if {@code items} is null
+     * @throws IllegalArgumentException
+     *     if {@code items} contains null
      */
     public Collection(T[] items) {
         this(Arrays.stream(items).toList());
@@ -73,9 +117,12 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
     /**
      * Inserts an item at the head of the collection.
      *
-     * @param <U> a subtype of the collectible type
-     * @param item the item to insert
-     * @throws IllegalArgumentException if {@code item} is null
+     * @param <U>
+     *     a subtype of the collectible type
+     * @param item
+     *     the item to insert
+     * @throws IllegalArgumentException
+     *     if {@code item} is null
      */
     @Override
     public <U extends T> void add(U item) {
@@ -91,16 +138,20 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
 
 
     /**
-     * Inserts all items from a Java collection at the head, one by one.
-     * The final iteration order is the reverse of the input order.
+     * Inserts all items from a Java collection at the head, one by one. The
+     * final iteration order is the reverse of the input order.
      *
-     * @param <U> a subtype of the collectible type
-     * @param items the items to insert
-     * @throws NullPointerException if {@code items} is null
-     * @throws IllegalArgumentException if an item is null
+     * @param <U>
+     *     a subtype of the collectible type
+     * @param items
+     *     the items to insert
+     * @throws NullPointerException
+     *     if {@code items} is null
+     * @throws IllegalArgumentException
+     *     if an item is null
      */
     @Override
-    public <U extends T> void add(java.util.Collection<U> items) {
+    public <U extends T> void addAll(java.util.Collection<U> items) {
         for (T item : items) {
             this.add(item);
         }
@@ -110,29 +161,32 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
     /**
      * Inserts all items from another linked chain at the head, one by one.
      *
-     * @param <U> a subtype of the collectible type
-     * @param items the items to insert
-     * @throws NullPointerException if {@code items} is null
-     * @throws IllegalArgumentException if an item is null
+     * @param <U>
+     *     a subtype of the collectible type
+     * @param items
+     *     the items to insert
+     * @throws NullPointerException
+     *     if {@code items} is null
+     * @throws IllegalArgumentException
+     *     if an item is null
      */
     @Override
-    public <U extends T> void add(LinkedChain<U> items) {
-        for (T item : items) {
-            this.add(item);
-        }
+    public <U extends T> void addAll(LinkedChain<U> items) {
+        addAll(items.toJavaCollection());
     }
 
 
     /**
      * Determines whether an item equals any stored item.
      *
-     * @param item the item to search for
+     * @param item
+     *     the item to search for
      * @return {@code true} if a matching item is present
-     * @throws NullPointerException if {@code item} is null and the chain
-     *     is nonempty
+     * @throws NullPointerException
+     *     if {@code item} is null and the chain is nonempty
      */
     @Override
-    public boolean contains(Object item) {
+    public boolean contains(T item) {
         for (T contained : this) {
             if (item.equals(contained)) {
                 return true;
@@ -144,18 +198,20 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
 
 
     /**
-     * Checks whether every item in a Java collection is present.
-     * Each item is checked independently, so repeated query values need
-     * not correspond to distinct stored items.
+     * Checks whether every item in a Java collection is present. Each item is
+     * checked independently, so repeated query values need not correspond to
+     * distinct stored items.
      *
-     * @param items the items to search for
-     * @return {@code true} if every queried item is present; also
-     *     {@code true} for an empty query collection
-     * @throws NullPointerException if {@code items} is null
+     * @param items
+     *     the items to search for
+     * @return {@code true} if every queried item is present; also {@code true}
+     *     for an empty query collection
+     * @throws NullPointerException
+     *     if {@code items} is null
      */
     @Override
-    public boolean contains(java.util.Collection<Object> items) {
-        for (Object item : items) {
+    public boolean containsAll(java.util.Collection<T> items) {
+        for (T item : items) {
             if (!this.contains(item)) {
                 return false;
             }
@@ -168,13 +224,15 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
     /**
      * Checks whether every item in another linked chain is present.
      *
-     * @param items the linked chain of items to search for
+     * @param items
+     *     the linked chain of items to search for
      * @return {@code true} if all queried items are present
-     * @throws NullPointerException if {@code items} is null
+     * @throws NullPointerException
+     *     if {@code items} is null
      */
     @Override
-    public boolean contains(LinkedChain<Object> items) {
-        return contains(items.toJavaCollection());
+    public boolean containsAll(LinkedChain<T> items) {
+        return containsAll(items.toJavaCollection());
     }
 
 
@@ -184,7 +242,7 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
      * @return the removed item, or {@code null} if the chain is empty
      */
     @Override
-    public Object remove() {
+    public T remove() {
         if (isEmpty()) {
             return null; // nothing to return if emtpy
         }
@@ -200,14 +258,15 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
 
 
     /**
-     * Removes the first item equal to the supplied value, searching from
-     * the head of the chain.
+     * Removes the first item equal to the supplied value, searching from the
+     * head of the chain.
      *
-     * @param item the value to remove
+     * @param item
+     *     the value to remove
      * @return the removed item, or {@code null} if there is no match
      */
     @Override
-    public Object remove(Object item) {
+    public T remove(T item) {
         if (item == null) {
             return null;
         }
@@ -241,19 +300,20 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
      * Removes at most one matching item for each value in a Java collection.
      * The returned list contains successfully removed items in query order.
      *
-     * @param items the items to remove; {@code null} removes nothing
+     * @param items
+     *     the items to remove; {@code null} removes nothing
      * @return the items actually removed, possibly empty
      */
     @Override
-    public java.util.Collection<Object> remove(java.util.Collection<Object> items) {
-        java.util.Collection<Object> result = new ArrayList<>();
+    public java.util.Collection<T> removeAll(java.util.Collection<T> items) {
+        java.util.Collection<T> result = new ArrayList<>();
 
         if (items == null) {
             return result;
         }
 
-        for (Object item : items) {
-            Object removed = this.remove(item);
+        for (T item : items) {
+            T removed = this.remove(item);
             if (removed != null) {
                 result.add(removed);
             }
@@ -266,13 +326,15 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
     /**
      * Removes at most one matching item for each value in another chain.
      *
-     * @param items the chain of items to remove
+     * @param items
+     *     the chain of items to remove
      * @return the items actually removed, in query iteration order
-     * @throws NullPointerException if {@code items} is null
+     * @throws NullPointerException
+     *     if {@code items} is null
      */
     @Override
-    public java.util.Collection<Object> remove(LinkedChain<Object> items) {
-        return remove(items.toJavaCollection());
+    public java.util.Collection<T> removeAll(LinkedChain<T> items) {
+        return removeAll(items.toJavaCollection());
     }
 
 
@@ -287,14 +349,16 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
 
 
     /**
-     * Compares two collections as unordered collections with duplicates.
-     * Two collections are equal if they have the same concrete class,
-     * size, and matching occurrences of each item.
+     * Compares two collections as unordered collections with duplicates. Two
+     * collections are equal if they have the same concrete class, size, and
+     * matching occurrences of each item.
      *
-     * @param other the object to compare with this collection
+     * @param other
+     *     the object to compare with this collection
      * @return {@code true} if both collections contain the same items
      */
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -308,17 +372,33 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
         }
 
         // make new collections from our current collections
-        Collection<?> collection = (Collection<?>)(other);
+        Collection<Collectible> collection = (Collection<Collectible>)(other);
         collection = new Collection<>(collection);
 
         if (collection.size() != this.size()) {
             return false;
         }
 
-        java.util.Collection<Object> removed =
-            collection.remove(this.toJavaCollection());
+        java.util.Collection<Collectible> removed =
+            collection.removeAll((Collection<Collectible>)(this));
 
         return removed.size() == this.size() && collection.isEmpty();
+    }
+
+
+    /**
+     * Computes an order-independent hash code consistent with the content-based
+     * {@link #equals(Object)} method.
+     *
+     * @return the sum of the stored items' hash codes
+     */
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for (T item : this) {
+            hash += item.hashCode();
+        }
+        return hash;
     }
 
 
@@ -350,8 +430,9 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
      * @return a new array, ordered from head to tail
      */
     @Override
-    public Object[] toArray() {
-        Object[] array = new Object[size()];
+    @SuppressWarnings("unchecked")
+    public T[] toArray() {
+        Collectible[] array = new Collectible[size()];
 
         Node<T> current = head;
         for (int i = 0; i < size(); ++i) {
@@ -359,18 +440,18 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
             current = current.getNext();
         }
 
-        return array;
+        return (T[])array; // safe cast to T because we can only add Ts
     }
 
 
     /**
-     * Creates an unmodifiable Java-list snapshot of this collection.
-     * The items appear in iteration order.
+     * Creates an unmodifiable Java-list snapshot of this collection. The items
+     * appear in iteration order.
      *
      * @return a new Java collection containing the items
      */
     @Override
-    public java.util.Collection<Object> toJavaCollection() {
+    public java.util.Collection<T> toJavaCollection() {
         return Arrays.stream(toArray()).toList();
     }
 
@@ -387,16 +468,94 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
 
 
     /**
-     * Joins the {@code info()} text of all items, one per line.
-     * Each item, including the final item, is followed by a newline.
+     * Returns a one-line summary of this collection.
      *
-     * @return the item descriptions, or an empty string when empty
+     * @return the collection name, value, and number of items
+     */
+    @Override
+    public String info() {
+        return super.info() + " - Items: " + size();
+    }
+
+
+    /**
+     * Returns the total value of all items in this collection.
+     *
+     * @return the combined value of the contained collectibles
+     */
+    @Override
+    public double getValue() {
+        double total = 0.0;
+
+        for (T item : this) {
+            total += item.getValue();
+        }
+
+        return total;
+    }
+
+
+    @Override
+    public void setValue(double value) {
+        throw new UnsupportedOperationException(
+            "Directly modifying the value of a collection is not supported");
+    }
+
+
+    /**
+     * Edits collection details or inspects/removes items. The common
+     * collectible fields use the inherited editing helper.
+     */
+    @Override
+    public void edit() {
+        Input input = new Input();
+
+        System.out.println("1. Edit name");
+        System.out.println("2. Edit description");
+        System.out.println("3. View items");
+        System.out.print("Choose an option: ");
+
+        int option = input.inputInt("", 5);
+
+        switch (option) {
+            case 1:
+            case 2:
+                editCommon(option, input);
+                break;
+            case
+            if (option == 4) {
+                System.out.println(this);
+            } else
+                if (option == 5) {
+                    T removed = remove();
+                    if (removed == null) {
+                        System.out.println("Collection is empty.");
+                    } else {
+                        System.out.println("Removed: " + removed.info());
+                    }
+                } else {
+                    System.out.println("Invalid menu choice.");
+                }
+    }
+
+
+    /**
+     * Returns the collection's details followed by its items in iteration order
+     * (most recently added first).
+     *
+     * @return a complete description of this collection
      */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (T in : this) {
-            result.append(in.info()).append("\n");
+        result.append("--- Collection ---\n");
+        result.append("Name: ").append(getName()).append("\n");
+        result.append("Description: ").append(getDesc()).append("\n");
+        result.append("Value: $").append(getValue()).append("\n");
+        result.append("Items: ").append(size()).append("\n");
+
+        for (T item : this) {
+            result.append("- ").append(item.info()).append("\n");
         }
         return result.toString();
     }
@@ -405,9 +564,10 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
     /**
      * Stores a value and a reference to the next node in the chain.
      *
-     * @param <T> the value type
+     * @param <T>
+     *     the value type
      */
-    private static class Node<T> implements Serializable{
+    private static class Node<T> implements Serializable {
         private T value;
         private Node<T> next;
 
@@ -423,7 +583,8 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
         /**
          * Constructs a node containing a value and no successor.
          *
-         * @param value the stored value
+         * @param value
+         *     the stored value
          */
         public Node(T value) {
             this(value, null);
@@ -433,8 +594,10 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
         /**
          * Constructs a node with the supplied value and successor.
          *
-         * @param value the stored value
-         * @param next the next node, or {@code null}
+         * @param value
+         *     the stored value
+         * @param next
+         *     the next node, or {@code null}
          */
         public Node(T value, Node<T> next) {
             this.value = value;
@@ -455,7 +618,8 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
         /**
          * Replaces the next-node reference.
          *
-         * @param next the new successor
+         * @param next
+         *     the new successor
          */
         public void setNext(Node<T> next) {
             this.next = next;
@@ -475,7 +639,8 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
         /**
          * Replaces the stored value.
          *
-         * @param value the new value
+         * @param value
+         *     the new value
          */
         public void setValue(T value) {
             this.value = value;
@@ -488,7 +653,8 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
     /**
      * Iterates over nodes from the supplied starting node to the tail.
      *
-     * @param <T> the value type
+     * @param <T>
+     *     the value type
      */
     private static class Iterator<T> implements java.util.Iterator<T> {
         private Node<T> current;
@@ -497,7 +663,8 @@ public class Collection<T extends Collectible> implements LinkedChain<T>, Serial
         /**
          * Creates an iterator at a particular node.
          *
-         * @param start the first node, or {@code null} for an empty iterator
+         * @param start
+         *     the first node, or {@code null} for an empty iterator
          */
         public Iterator(Node<T> start) {
             this.current = start;
