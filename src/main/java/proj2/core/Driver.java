@@ -7,37 +7,43 @@ package proj2.core;
 import proj2.collectibles.*;
 import proj2.collections.Collection;
 
-import java.io.*;
-
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 /**
- * This class is what controls the collection and interfaces with the user to edit it
+ * This class is what controls the collection and interfaces with the user to
+ * edit it
  */
-public class Driver implements Serializable{
+public class Driver implements Serializable {
     private static final String[] collectibleTypes =
         { "Action Figure", "Stamp", "Trading Card", "Vinyl Record" };
-    private static Collectible hover = null;
+    private static final Collectible hover = null;
     private static Collection currentCollection = null;
 
+
     /**
-     * Run is practically main, but so as not to store logic in main, we made a new method for it
-     * @param args default param
+     * Run is practically main, but so as not to store logic in main, we made a
+     * new method for it
+     *
+     * @param args
+     *     default param
      */
     public static void run(String[] args) {
         startMenu();
     }
+
 
     /**
      * Start menu allows the user to create a new collection
      */
     public static void startMenu() {
         String prompt = "What would you like to do?";
-        String[] options = { "Exit", "Start a new collection.", "Load a preexisting collection" };
+        String[] options = { "Exit", "Start a new collection.",
+            "Load a preexisting collection" };
         int choice;
         boolean valid = false;
 
-        while(!valid) {
+        while (!valid) {
             valid = true;
             choice = (new Input()).options(prompt, options);
 
@@ -61,53 +67,45 @@ public class Driver implements Serializable{
         }
     }
 
+
     /**
-     * Main menu is the primary control loop of the program. Once called, it enters a loop that allows the user to
-     * add, remove, edit, or display the collection. It only allows users to remove from, edit, or display the
-     * collection if the collection is not empty.
+     * Main menu is the primary control loop of the program. Allows the user to
+     * edit, display, or save the current collection.
      */
     public static void mainMenu() {
         boolean endLoop = false;
-        String[] defaultOptions =
-            { "Exit", "Add a collectible", "Remove a collectible",
-                "Edit a collectible", "Display collection", "Save collection" };
-        String[] emptyCollectionOptions = { "Exit", "Add a collectible" };
+
+        String[] options = { "Exit", "Edit collection", "Display collection",
+            "Save collection" };
+
         while (!endLoop) {
-            String prompt = "What would you like to do?";
-            String[] options = defaultOptions;
-            if (currentCollection.isEmpty()) {
-                options = emptyCollectionOptions;
-                System.out.println("Current collection is empty");
-            }
-            int choice;
-            choice = (new Input()).options(prompt, options);
+            int choice =
+                (new Input()).options("What would you like to do?", options);
+
             switch (choice) {
                 case 0:
                     endLoop = true;
                     break;
+
                 case 1:
-                    addCollectible();
+                    currentCollection.edit();
                     break;
+
                 case 2:
-                    hover = selectCollectible();
-                    removeCollectible();
+                    System.out.println(currentCollection);
                     break;
+
                 case 3:
-                    hover = selectCollectible();
-                    editCollectible();
-                    break;
-                case 4:
-                    displayCollection();
-                    break;
-                case 5:
                     saveCollection();
+                    break;
             }
         }
     }
 
+
     /**
-     * Prompts a user for a type of collectible, creates that kind of collectible.
-     * Add that created collectible to the current collection.
+     * Prompts a user for a type of collectible, creates that kind of
+     * collectible. Add that created collectible to the current collection.
      */
     public static void addCollectible() {
         //Create a collectible
@@ -166,12 +164,16 @@ public class Driver implements Serializable{
                 break;
             case 3:
                 String artist = (new Input()).inputString("Who is the artist?");
-                String album = (new Input()).inputString("What album is this record from?");
-                int releaseYear = (new Input()).inputInt("What year was this record released?");
-                entry = new VinylRecord(name, desc, value, artist, album, releaseYear);
+                String album = (new Input()).inputString(
+                    "What album is this record from?");
+                int releaseYear = (new Input()).inputInt(
+                    "What year was this record released?");
+                entry = new VinylRecord(name, desc, value, artist, album,
+                    releaseYear);
         }
         currentCollection.add(entry);
     }
+
 
     /**
      * Choose a collectible from the current collection
@@ -199,6 +201,7 @@ public class Driver implements Serializable{
         return collectibles[choice];
     }
 
+
     /**
      * Removes the currently selected collectible from the collection
      */
@@ -209,6 +212,7 @@ public class Driver implements Serializable{
         currentCollection.remove(hover);
     }
 
+
     /**
      * Calls the edit() function of the currently selected collectible
      */
@@ -217,6 +221,7 @@ public class Driver implements Serializable{
             hover.edit();
         }
     }
+
 
     /**
      * Displays the toString() of every collectible in the current collection
@@ -235,20 +240,24 @@ public class Driver implements Serializable{
         System.out.println();
     }
 
+
     /**
-     * Sets the current collection equal to a collection selected from the Saves folder
+     * Sets the current collection equal to a collection selected from the Saves
+     * folder
      */
-    public static void loadCollection(){
+    public static void loadCollection() {
         String target = Save.selectSave();
-        currentCollection = (Collection) Save.load(target);
+        currentCollection = (Collection)Save.load(target);
         //return file (?)
     }
+
 
     /**
      * Saves the current collection with a filename inputting by the user
      */
-    public static void saveCollection(){
-        String filename = (new Input()).inputString("What would you like to call your collection?", 50);
+    public static void saveCollection() {
+        String filename = (new Input()).inputString(
+            "What would you like to call your collection?", 50);
         Save.save(currentCollection, filename);
     }
 }

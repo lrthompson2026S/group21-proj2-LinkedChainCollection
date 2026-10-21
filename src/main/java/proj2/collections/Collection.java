@@ -511,7 +511,8 @@ public class Collection<T extends Collectible> extends Collectible
         boolean editing = true;
 
         while (editing) {
-            int choice = input.options("What would you like to do?",
+            int choice = input.options(
+                "Editing: " + getName() + "\nWhat would you like to do?",
                 new String[] { "Finish editing", "Edit collection name",
                     "Edit collection description", "Add a collectible",
                     "Create subcollection", "Remove a collectible",
