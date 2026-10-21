@@ -12,6 +12,10 @@ java {
     }
 }
 
+tasks.named('run', JavaExec) {
+    standardInput = System.in
+}
+
 sourceSets {
     main {
         java {
