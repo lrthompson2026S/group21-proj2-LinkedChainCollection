@@ -141,7 +141,10 @@ public class Stamp extends Collectible {
      */
     @Override
     public String toString() {
-        return "Stamp{" + "age=" + age + ", printLocation='" + printLocation + '\'' + ", misprint=" + misprint + '}';
+        return String.format("--- Stamp ---\n" + "Name: " + getName()
+                + "\n" + "Description: " + getDesc() + "\n" + "Value: " + getValue()
+                + "\n" + "Age: " + age + "\n" + "Pirnt Location: " + printLocation
+                + "\n" + "Misprint status: " + String.valueOf(misprint) + "\n");
     }
 
 

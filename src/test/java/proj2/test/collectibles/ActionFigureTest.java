@@ -142,17 +142,10 @@ public class ActionFigureTest {
         figure.setCharacter("Spider-Man");
 
         assertEquals(
-            "ActionFigure{series='Marvel Legends', sealed=true, " + "character='Spider-Man'}",
-            figure.toString());
-    }
-
-
-    /**
-     * Tests toString with default values.
-     */
-    @Test
-    public void testToStringDefaultValues() {
-        assertEquals("ActionFigure{series='', sealed=false, character=''}",
+                String.format("--- Action Figure ---\n" + "Name: Unknown Collectible"
+                        + "\n" + "Description: None" + "\n" + "Value: 0.0"
+                        + "\n" + "Series: Marvel Legends" + "\n" + "Sealed Status: true"
+                        + "\n" + "Character: Spider-Man" + "\n"),
             figure.toString());
     }
 

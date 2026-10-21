@@ -4,10 +4,7 @@
 
 package proj2.core;
 
-import proj2.collectibles.ActionFigure;
-import proj2.collectibles.Collectible;
-import proj2.collectibles.Stamp;
-import proj2.collectibles.TradingCard;
+import proj2.collectibles.*;
 import proj2.collections.Collection;
 
 import java.io.*;
@@ -19,7 +16,7 @@ import java.util.NoSuchElementException;
  */
 public class Driver implements Serializable{
     private static final String[] collectibleTypes =
-        { "Action Figure", "Stamp", "Trading Card" };
+        { "Action Figure", "Stamp", "Trading Card", "Vinyl Record" };
     private static Collectible hover = null;
     private static Collection currentCollection = null;
 
@@ -167,6 +164,11 @@ public class Driver implements Serializable{
                     new TradingCard(name, desc, value, type, grade, printYear);
 
                 break;
+            case 3:
+                String artist = (new Input()).inputString("Who is the artist?");
+                String album = (new Input()).inputString("What album is this record from?");
+                int releaseYear = (new Input()).inputInt("What year was this record released?");
+                entry = new VinylRecord(name, desc, value, artist, album, releaseYear);
         }
         currentCollection.add(entry);
     }

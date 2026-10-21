@@ -141,8 +141,11 @@ public class ActionFigure extends Collectible {
      */
     @Override
     public String toString() {
-        return "ActionFigure{" + "series='" + series + '\'' + ", sealed=" + sealed + ", character='" + character + '\'' + '}';
-    }
+        return String.format("--- Action Figure ---\n" + "Name: " + getName()
+                + "\n" + "Description: " + getDesc() + "\n" + "Value: " + getValue()
+                + "\n" + "Series: " + series + "\n" + "Sealed Status: " + sealed
+                + "\n" + "Character: " + character + "\n");
+        }
 
 
     /**

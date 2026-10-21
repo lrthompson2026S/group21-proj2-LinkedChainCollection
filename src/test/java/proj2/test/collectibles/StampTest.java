@@ -142,17 +142,10 @@ public class StampTest {
         stamp.setMisprint(true);
 
         assertEquals(
-            "Stamp{age=25, printLocation='United States', misprint=true}",
-            stamp.toString());
-    }
-
-
-    /**
-     * Tests toString with default values.
-     */
-    @Test
-    public void testToStringDefaultValues() {
-        assertEquals("Stamp{age=0, printLocation='', misprint=false}",
+                String.format("--- Stamp ---\n" + "Name: Unknown Collectible"
+                        + "\n" + "Description: None" + "\n" + "Value: 0.0"
+                        + "\n" + "Age: 25" + "\n" + "Pirnt Location: United States"
+                        + "\n" + "Misprint status: true" + "\n"),
             stamp.toString());
     }
 

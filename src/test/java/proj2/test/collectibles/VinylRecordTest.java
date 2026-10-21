@@ -161,7 +161,7 @@ public class VinylRecordTest extends student.TestCase {
     public void testToString() {
         String result = record.toString();
 
-        assertTrue(result.contains("VinylRecord"));
+        assertTrue(result.contains("Vinyl Record"));
         assertTrue(result.contains("Thriller Record"));
         assertTrue(result.contains("Michael Jackson"));
         assertTrue(result.contains("Thriller"));

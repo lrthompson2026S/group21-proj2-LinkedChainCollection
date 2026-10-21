@@ -222,11 +222,9 @@ public class VinylRecord extends Collectible {
      */
     @Override
     public String toString() {
-        return "VinylRecord{name='" + getName()
-            + "', desc='" + getDesc()
-            + "', value=" + getValue()
-            + ", artist='" + artist
-            + "', album='" + album
-            + "', releaseYear=" + releaseYear + "}";
+        return String.format("--- Vinyl Record ---\n" + "Name: " + getName()
+                + "\n" + "Description: " + getDesc() + "\n" + "Value: " + getValue()
+                + "\n" + "Artist: " + artist + "\n" + "Album: " + album
+                + "\n" + "Release Year: " + String.valueOf(releaseYear) + "\n");
     }
 }
