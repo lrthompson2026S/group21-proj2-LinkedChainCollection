@@ -110,6 +110,9 @@ public class Driver implements Serializable {
     public static void addCollectible() {
         //Create a collectible
         //Add that to the front of the collection
+        System.out.println("Adding a collectible...");
+        System.out.println(collectibleTypes);
+
         String prompt = "What kind of collectible would you like to add?";
         int choice;
         choice = (new Input()).options(prompt, collectibleTypes);

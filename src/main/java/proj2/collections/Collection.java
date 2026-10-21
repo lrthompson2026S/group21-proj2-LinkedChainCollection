@@ -1,9 +1,6 @@
 package proj2.collections;
 
-import proj2.collectibles.ActionFigure;
-import proj2.collectibles.Collectible;
-import proj2.collectibles.Stamp;
-import proj2.collectibles.TradingCard;
+import proj2.collectibles.*;
 import proj2.core.Input;
 
 import java.util.ArrayList;
@@ -598,7 +595,7 @@ public class Collection<T extends Collectible> extends Collectible
     private Collectible createCollectible(Input input) {
         int type =
             input.options("What kind of collectible would you like to add?",
-                new String[] { "Action Figure", "Stamp", "Trading Card" });
+                new String[] { "Action Figure", "Stamp", "Trading Card", "Vinyl Record" });
 
         String name =
             input.inputString("What is the name of your collectible?");
@@ -648,6 +645,16 @@ public class Collection<T extends Collectible> extends Collectible
 
                 return new TradingCard(name, desc, value, cardType, grade,
                     year);
+            }
+
+            case 3: {
+                String artist = input.inputString("Who is the artist?");
+
+                String album = input.inputString("What album is this record from?");
+
+                int releaseYear = input.inputInt("What year was this record released?");
+
+                return new VinylRecord(name, desc, value, artist, album, releaseYear);
             }
 
             default:
